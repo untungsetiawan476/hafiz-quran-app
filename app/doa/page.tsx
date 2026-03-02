@@ -424,6 +424,7 @@ export default function DoaPage() {
 
 
   // --- TAMPILAN 2: LAYAR ISI DOA (Jika Kategori Dipilih) ---
+  // --- TAMPILAN 2: LAYAR ISI DOA (Jika Kategori Dipilih) ---
   if (kategoriAktif) {
     return (
       <main className="pb-24 bg-slate-50 min-h-screen">
@@ -465,26 +466,30 @@ export default function DoaPage() {
                 const isBuka = doaTerbuka === index;
 
                 return (
-                  <div key={index} className={`bg-white rounded-2xl shadow-sm border transition-all duration-300 overflow-hidden ${isBuka ? "border-emerald-300 ring-2 ring-emerald-50" : "border-gray-100"}`}>
-                    <button onClick={() => setDoaTerbuka(isBuka ? null : index)} className="w-full p-4 flex items-center justify-between text-left focus:outline-none">
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-lg transition-colors ${isBuka ? "bg-emerald-500 text-white" : "bg-emerald-50 text-emerald-600"}`}>
+                  <div key={index} className={`bg-white rounded-2xl shadow-sm border transition-all duration-300 ${isBuka ? "border-emerald-300 ring-2 ring-emerald-50" : "border-gray-100"}`}>
+                    
+                    <button onClick={() => setDoaTerbuka(isBuka ? null : index)} className="w-full p-4 flex items-start justify-between text-left focus:outline-none">
+                      <div className="flex items-start gap-3">
+                        <div className={`p-2 rounded-lg shrink-0 transition-colors ${isBuka ? "bg-emerald-500 text-white" : "bg-emerald-50 text-emerald-600"}`}>
                           <BookHeart className="w-5 h-5" />
                         </div>
-                        <h2 className={`font-bold transition-colors pr-4 ${isBuka ? "text-emerald-700" : "text-slate-700"}`}>
+                        <h2 className={`font-bold mt-1 leading-snug transition-colors pr-2 ${isBuka ? "text-emerald-700" : "text-slate-700"}`}>
                           {doa.judul}
                         </h2>
                       </div>
-                      <ChevronDown className={`w-5 h-5 text-gray-400 shrink-0 transition-transform duration-300 ${isBuka ? "rotate-180 text-emerald-500" : ""}`} />
+                      <ChevronDown className={`w-5 h-5 mt-1 text-gray-400 shrink-0 transition-transform duration-300 ${isBuka ? "rotate-180 text-emerald-500" : ""}`} />
                     </button>
 
-                    <div className={`px-5 transition-all duration-500 ease-in-out ${isBuka ? "max-h-[1500px] opacity-100 pb-5" : "max-h-0 opacity-0 pb-0"}`}>
-                      <div className="pt-2 border-t border-gray-100">
-                        <p className="text-right text-2xl font-bold leading-loose text-slate-800 mb-4 mt-4" dir="rtl">{doa.arab}</p>
-                        <p className="text-emerald-600 text-sm mb-2 font-medium">{doa.latin}</p>
-                        <p className="text-slate-600 text-sm leading-relaxed italic">&quot;{doa.arti}&quot;</p>
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isBuka ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                      <div className="px-5 pb-5">
+                        <div className="pt-4 border-t border-gray-100">
+                          <p className="text-right text-2xl font-bold leading-loose text-slate-800 mb-4 mt-2" dir="rtl">{doa.arab}</p>
+                          <p className="text-emerald-600 text-sm mb-2 font-medium">{doa.latin}</p>
+                          <p className="text-slate-600 text-sm leading-relaxed italic">&quot;{doa.arti}&quot;</p>
+                        </div>
                       </div>
                     </div>
+
                   </div>
                 );
               })
