@@ -424,16 +424,14 @@ export default function DoaPage() {
 
 
   // --- TAMPILAN 2: LAYAR ISI DOA (Jika Kategori Dipilih) ---
-  // --- TAMPILAN 2: LAYAR ISI DOA (Jika Kategori Dipilih) ---
   if (kategoriAktif) {
     return (
       <main className="pb-24 bg-slate-50 min-h-screen">
-        {/* Header Lengket ala Aplikasi */}
         <div className="sticky top-0 bg-white shadow-sm z-10 px-5 py-4 flex items-center gap-4">
           <button
             onClick={() => {
               setKategoriAktif(null);
-              setKataKunci(""); // Reset pencarian saat kembali
+              setKataKunci(""); 
               setDoaTerbuka(null);
             }}
             className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-emerald-100 hover:text-emerald-600 transition"
@@ -466,19 +464,25 @@ export default function DoaPage() {
                 const isBuka = doaTerbuka === index;
 
                 return (
-                  <div key={index} className={`bg-white rounded-2xl shadow-sm border transition-all duration-300 ${isBuka ? "border-emerald-300 ring-2 ring-emerald-50" : "border-gray-100"}`}>
+                  // PERBAIKAN: Gunakan doa.judul sebagai key agar React tidak bingung saat animasi
+                  <div key={doa.judul} className={`bg-white rounded-2xl shadow-sm border transition-all duration-300 ${isBuka ? "border-emerald-300 ring-2 ring-emerald-50" : "border-gray-100"}`}>
                     
-                    <button onClick={() => setDoaTerbuka(isBuka ? null : index)} className="w-full p-4 flex items-start justify-between text-left focus:outline-none">
+                    {/* PERBAIKAN: Ubah <button> menjadi <div> agar tidak bentrok di browser HP */}
+                    <div 
+                      onClick={() => setDoaTerbuka(isBuka ? null : index)} 
+                      className="w-full p-4 flex items-start justify-between text-left cursor-pointer select-none"
+                    >
                       <div className="flex items-start gap-3">
                         <div className={`p-2 rounded-lg shrink-0 transition-colors ${isBuka ? "bg-emerald-500 text-white" : "bg-emerald-50 text-emerald-600"}`}>
                           <BookHeart className="w-5 h-5" />
                         </div>
-                        <h2 className={`font-bold mt-1 leading-snug transition-colors pr-2 ${isBuka ? "text-emerald-700" : "text-slate-700"}`}>
+                        {/* PERBAIKAN: Ubah <h2> menjadi <div> agar aman di semua browser */}
+                        <div className={`font-bold mt-1 leading-snug transition-colors pr-2 ${isBuka ? "text-emerald-700" : "text-slate-700"}`}>
                           {doa.judul}
-                        </h2>
+                        </div>
                       </div>
                       <ChevronDown className={`w-5 h-5 mt-1 text-gray-400 shrink-0 transition-transform duration-300 ${isBuka ? "rotate-180 text-emerald-500" : ""}`} />
-                    </button>
+                    </div>
 
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isBuka ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
                       <div className="px-5 pb-5">
@@ -514,7 +518,6 @@ export default function DoaPage() {
         </p>
       </header>
 
-      {/* --- SISTEM TAB (DOA vs WIRID) --- */}
       <div className="flex bg-gray-200/60 p-1.5 rounded-xl mb-6">
         <button
           onClick={() => { setActiveTab("doa"); setKataKunci(""); }}
@@ -547,25 +550,25 @@ export default function DoaPage() {
         />
       </div>
 
-      {/* --- DAFTAR FOLDER KATEGORI --- */}
       <div className="grid grid-cols-1 gap-3">
         {kategoriTampil.map((kat) => (
-          <button
+          // PERBAIKAN: Ubah <button> menjadi <div> di menu depan juga
+          <div
             key={kat.id}
             onClick={() => {
               setKategoriAktif(kat);
-              setKataKunci(""); // Kosongkan pencarian untuk layar selanjutnya
+              setKataKunci(""); 
             }}
-            className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:border-emerald-300 hover:shadow-md transition-all text-left group"
+            className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:border-emerald-300 hover:shadow-md transition-all text-left group cursor-pointer select-none"
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-slate-50 group-hover:bg-emerald-50 text-slate-400 group-hover:text-emerald-500 rounded-xl flex items-center justify-center transition-colors">
                 <FolderOpen className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="font-bold text-slate-800 text-base group-hover:text-emerald-700 transition-colors">
+                <div className="font-bold text-slate-800 text-base group-hover:text-emerald-700 transition-colors">
                   {kat.nama}
-                </h2>
+                </div>
                 <p className="text-xs text-slate-500 mt-0.5 font-medium">
                   <span className="text-emerald-600">{kat.jumlah}</span> Bacaan
                 </p>
@@ -574,7 +577,7 @@ export default function DoaPage() {
             <div className="bg-gray-50 p-2 rounded-full group-hover:bg-emerald-100 transition-colors">
               <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-emerald-600 -rotate-90" />
             </div>
-          </button>
+          </div>
         ))}
         
         {kategoriTampil.length === 0 && (
@@ -586,3 +589,4 @@ export default function DoaPage() {
     </main>
   );
 }
+
