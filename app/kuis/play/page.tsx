@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Volume2, CheckCircle2, XCircle, Trophy, ArrowRight, RotateCcw, Home } from "lucide-react";
+import { Volume2, CheckCircle2, XCircle, Trophy, ArrowRight, RotateCcw, Home, HelpCircle } from "lucide-react";
 
 interface Ayat {
   nomorAyat: number;
@@ -40,31 +40,23 @@ function PapanKuis() {
       .then((data) => {
         const ayatList: Ayat[] = data.data.ayat;
         
-        // --- LOGIKA RENTANG AYAT ---
-        // Karena array JavaScript dimulai dari 0 (ayat 1 = indeks 0)
         const indeksMulai = ayatMulai - 1; 
         const indeksAkhir = ayatAkhir - 1;
-
         const poolSoalValid: number[] = [];
 
-        // Kumpulkan kandidat soal yang masuk dalam rentang pilihan pengguna
         for (let i = indeksMulai; i < indeksAkhir; i++) {
-          // Pastikan ayat selanjutnya ada di database untuk dijadikan kunci jawaban
           if (i + 1 < ayatList.length) {
             poolSoalValid.push(i);
           }
         }
 
-        // Acak poolSoal agar urutannya tidak tertebak, lalu ambil sejumlah targetSoal
         const diacak = poolSoalValid.sort(() => Math.random() - 0.5);
         const kandidatTerpilih = diacak.slice(0, targetSoal);
 
-        // Rakit soal dan jawaban pengecoh
         const soalDirakit = kandidatTerpilih.map((idx) => {
           const ayatSoal = ayatList[idx];
           const jawabanBenar = ayatList[idx + 1];
 
-          // Ambil 3 jawaban salah (pengecoh) dari seluruh ayat di surah tersebut
           const jawabanSalah = ayatList
             .filter((a) => a.nomorAyat !== jawabanBenar.nomorAyat)
             .sort(() => Math.random() - 0.5)
@@ -97,125 +89,148 @@ function PapanKuis() {
     }
   };
 
+  // --- TAMPILAN 1: LOADING ---
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
         <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
-        <p className="mt-4 text-emerald-600 font-medium">Menyiapkan potongan ayat...</p>
+        <p className="mt-4 text-emerald-600 font-medium tracking-widest text-sm uppercase">Menyiapkan Soal...</p>
       </div>
     );
   }
 
+  // --- TAMPILAN 2: HASIL KUIS ---
   if (kuisSelesai) {
     return (
-      <div className="p-6 pb-24 min-h-screen flex flex-col items-center justify-center text-center">
-        <div className="bg-emerald-100 p-6 rounded-full mb-6 text-emerald-600">
-          <Trophy className="w-20 h-20" />
+      <div className="min-h-screen bg-emerald-600 flex flex-col items-center justify-center p-6 text-center">
+        <div className="bg-white/20 p-8 rounded-full mb-8">
+          <Trophy className="w-24 h-24 text-white" />
         </div>
-        <h1 className="text-3xl font-bold text-slate-800 mb-2">Masya Allah!</h1>
-        <p className="text-slate-500 mb-8">Kuis Sambung Ayat Selesai</p>
+        <h1 className="text-4xl font-bold text-white mb-2 tracking-wide">Masya Allah!</h1>
+        <p className="text-emerald-100 mb-10 font-medium">Ujian Hafalan Selesai</p>
         
-        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 w-full mb-8">
-          <p className="text-sm font-medium text-slate-500 uppercase tracking-widest mb-2">Total Skor Anda</p>
-          <p className="text-6xl font-black text-emerald-600">{skor}</p>
-          <p className="text-sm text-slate-400 mt-2">Dari maksimal {daftarSoal.length * 10} poin</p>
+        <div className="bg-white p-8 rounded-[32px] shadow-lg w-full mb-10">
+          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Total Skor Anda</p>
+          <p className="text-7xl font-black text-emerald-600 mb-2">{skor}</p>
+          <div className="inline-block bg-slate-100 px-4 py-1.5 rounded-full">
+            <p className="text-xs font-bold text-slate-500">Dari {daftarSoal.length * 10} poin maksimal</p>
+          </div>
         </div>
 
-        <div className="flex gap-4 w-full">
-          <button 
-            onClick={() => window.location.reload()} 
-            className="flex-1 bg-white border-2 border-emerald-600 text-emerald-600 font-bold py-4 rounded-xl flex items-center justify-center gap-2"
-          >
-            <RotateCcw className="w-5 h-5" /> Ulangi
+        <div className="flex flex-col gap-4 w-full">
+          <button onClick={() => window.location.reload()} className="w-full bg-white text-emerald-700 font-bold py-4 rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
+            <RotateCcw className="w-5 h-5" /> Coba Lagi
           </button>
-          <button 
-            onClick={() => router.push('/kuis')} 
-            className="flex-1 bg-emerald-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2"
-          >
-            <Home className="w-5 h-5" /> Menu
+          <button onClick={() => router.push('/kuis')} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-transform border border-emerald-500/30">
+            <Home className="w-5 h-5" /> Kembali ke Menu
           </button>
         </div>
       </div>
     );
   }
 
+  // --- TAMPILAN 3: PAPAN KUIS ---
   const soalSekarang = daftarSoal[indeksSoal];
 
   return (
-    <div className="p-5 pb-24 min-h-screen bg-slate-50 flex flex-col">
-      <div className="flex justify-between items-center mb-6 pt-2">
-        <div className="bg-emerald-100 text-emerald-700 font-bold px-4 py-2 rounded-full text-sm">
-          Soal {indeksSoal + 1} / {daftarSoal.length}
+    <div className="min-h-screen bg-slate-50 flex flex-col pb-24">
+      {/* HEADER DATAR (Minimalis & Aman) */}
+      <div className="bg-emerald-600 p-5 rounded-b-3xl shadow-sm text-white flex justify-between items-center mb-6">
+        <div>
+          <p className="text-xs text-emerald-200 font-bold uppercase tracking-wider mb-1">Pertanyaan</p>
+          <div className="font-black text-xl bg-white/20 px-4 py-1 rounded-lg inline-block">
+            {indeksSoal + 1} / {daftarSoal.length}
+          </div>
         </div>
-        <div className="bg-white shadow-sm border border-gray-100 font-bold text-slate-700 px-4 py-2 rounded-full text-sm flex items-center gap-2">
-          <Trophy className="w-4 h-4 text-yellow-500" /> {skor}
+        <div className="text-right">
+          <p className="text-xs text-emerald-200 font-bold uppercase tracking-wider mb-1">Skor</p>
+          <div className="font-black text-xl flex items-center gap-2 justify-end">
+            {skor} <Trophy className="w-5 h-5 text-yellow-400" />
+          </div>
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6 text-center">
-        <p className="text-sm text-slate-500 mb-4 font-medium flex items-center justify-center gap-2">
-          <Volume2 className="w-4 h-4" /> Dengarkan potongan ayat ini:
-        </p>
-        <audio 
-          controls 
-          autoPlay
-          className="w-full h-12"
-          src={soalSekarang.ayatSoal.audio["05"]}
-        >
-        </audio>
-        <p className="text-xs text-slate-400 mt-3">*Pilih kelanjutan dari ayat di atas</p>
-      </div>
-
-      <div className="flex flex-col gap-3 flex-1">
-        {/* PERBAIKAN: Variabel 'index' yang tidak terpakai sudah dihapus di sini */}
-        {soalSekarang.pilihan.map((pilihan) => {
-          const isTerpilih = jawabanTerpilih === pilihan.nomorAyat;
-          const isBenar = pilihan.nomorAyat === soalSekarang.jawabanBenar.nomorAyat;
+      <div className="px-5 flex-1 flex flex-col">
+        {/* KOTAK PERTANYAAN (Sekarang Teks Arab Muncul!) */}
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 mb-6 text-center">
+          <div className="flex justify-center mb-4">
+             <div className="bg-emerald-100 p-3 rounded-full text-emerald-600">
+               <HelpCircle className="w-8 h-8" />
+             </div>
+          </div>
+          <p className="text-sm text-slate-600 font-bold mb-4">Apa kelanjutan ayat di bawah ini?</p>
           
-          let warnaTombol = "bg-white border-gray-200 text-slate-700 hover:border-emerald-400";
-          if (jawabanTerpilih !== null) {
-            if (isBenar) warnaTombol = "bg-emerald-50 border-emerald-500 text-emerald-700 ring-2 ring-emerald-200";
-            else if (isTerpilih && !isBenar) warnaTombol = "bg-red-50 border-red-500 text-red-700";
-            else warnaTombol = "bg-white border-gray-200 text-gray-400 opacity-60";
-          }
+          {/* ---> TEKS ARAB SOAL DITAMBAHKAN DI SINI <--- */}
+          <div className="mb-6 px-2">
+            <p className="text-3xl font-bold leading-[1.8] text-slate-800" dir="rtl">
+              {soalSekarang.ayatSoal.teksArab}
+            </p>
+          </div>
+          
+          {/* AUDIO TETAP ADA UNTUK MUROJA'AH */}
+          <div className="bg-slate-50 rounded-xl p-2 border border-slate-100">
+            <audio controls autoPlay className="w-full h-10" src={soalSekarang.ayatSoal.audio["05"]} />
+          </div>
+        </div>
 
-          return (
+        {/* PILIHAN JAWABAN (HANYA ARAB, MINIMALIS, FLAT) */}
+        <div className="flex flex-col gap-4">
+          {soalSekarang.pilihan.map((pilihan) => {
+            const isTerpilih = jawabanTerpilih === pilihan.nomorAyat;
+            const isBenar = pilihan.nomorAyat === soalSekarang.jawabanBenar.nomorAyat;
+            
+            // Logika Warna Tombol Flat (Tanpa Shadow Berlebihan)
+            let warnaTombol = "bg-white border-slate-200 text-slate-700 hover:border-emerald-300 active:bg-slate-50";
+            if (jawabanTerpilih !== null) {
+              if (isBenar) warnaTombol = "bg-emerald-50 border-emerald-500 text-emerald-700";
+              else if (isTerpilih && !isBenar) warnaTombol = "bg-red-50 border-red-500 text-red-700";
+              else warnaTombol = "bg-slate-50 border-slate-200 text-slate-300 opacity-60"; // Yang tidak dipilih jadi pudar
+            }
+
+            return (
+              <button
+                key={pilihan.nomorAyat}
+                onClick={() => handleJawab(pilihan.nomorAyat)}
+                disabled={jawabanTerpilih !== null}
+                className={`p-6 rounded-2xl border-2 text-right transition-colors duration-200 relative w-full ${warnaTombol}`}
+              >
+                {/* Ikon Benar/Salah */}
+                {jawabanTerpilih !== null && isBenar && (
+                  <CheckCircle2 className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 text-emerald-500" />
+                )}
+                {jawabanTerpilih !== null && isTerpilih && !isBenar && (
+                  <XCircle className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 text-red-500" />
+                )}
+                
+                {/* Teks Arab Pilihan */}
+                <div className={`text-3xl font-bold leading-[1.8] pl-12 ${jawabanTerpilih !== null && !isBenar && !isTerpilih ? 'opacity-50' : ''}`} dir="rtl">
+                  {pilihan.teksArab}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* TOMBOL LANJUT (Muncul kalau sudah dijawab) */}
+        {jawabanTerpilih !== null && (
+          <div className="mt-8 mb-6">
             <button
-              key={pilihan.nomorAyat}
-              onClick={() => handleJawab(pilihan.nomorAyat)}
-              disabled={jawabanTerpilih !== null}
-              className={`p-5 rounded-2xl border-2 text-right transition-all duration-300 relative ${warnaTombol}`}
+              onClick={handleLanjut}
+              className="w-full bg-slate-800 text-white font-bold py-5 rounded-2xl flex justify-center items-center gap-2 active:scale-95 transition-transform"
             >
-              {jawabanTerpilih !== null && isBenar && (
-                <CheckCircle2 className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-emerald-500" />
-              )}
-              {jawabanTerpilih !== null && isTerpilih && !isBenar && (
-                <XCircle className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-red-500" />
-              )}
-              <span className="text-2xl font-bold leading-loose" dir="rtl">
-                {pilihan.teksArab}
-              </span>
+              {indeksSoal < daftarSoal.length - 1 ? "LANJUTKAN UJIAN" : "LIHAT HASIL AKHIR"}
+              <ArrowRight className="w-5 h-5" />
             </button>
-          );
-        })}
+          </div>
+        )}
       </div>
-
-      {jawabanTerpilih !== null && (
-        <button
-          onClick={handleLanjut}
-          className="mt-6 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 animate-bounce"
-        >
-          {indeksSoal < daftarSoal.length - 1 ? "LANJUT SOAL" : "LIHAT HASIL"}
-          <ArrowRight className="w-5 h-5" />
-        </button>
-      )}
     </div>
   );
 }
 
 export default function PlayKuisPage() {
   return (
-    <Suspense fallback={<div className="p-10 text-center">Memuat...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center text-emerald-600 font-bold">Memuat Ujian...</div>}>
       <PapanKuis />
     </Suspense>
   );
