@@ -19,7 +19,7 @@ interface Kategori {
   list: DoaItem[];
 }
 
-// --- DATABASE LOKAL KATEGORI (Lengkap sesuai permintaan) ---
+// --- DATABASE LOKAL KATEGORI (Lengkap Sesuai Data Kakak) ---
 const databaseKategori: Kategori[] = [
     // ================= KATEGORI WIRID =================
     { 
@@ -422,22 +422,22 @@ export default function DoaPage() {
     (doa) => doa.judul.toLowerCase().includes(kataKunci.toLowerCase())
   ) || [];
 
-
   // --- TAMPILAN 2: LAYAR ISI DOA (Jika Kategori Dipilih) ---
   if (kategoriAktif) {
     return (
       <main className="pb-24 bg-slate-50 min-h-screen">
+        {/* Header Lengket ala Aplikasi */}
         <div className="sticky top-0 bg-white shadow-sm z-10 px-5 py-4 flex items-center gap-4">
-          <button
+          <div
             onClick={() => {
               setKategoriAktif(null);
               setKataKunci(""); 
               setDoaTerbuka(null);
             }}
-            className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-emerald-100 hover:text-emerald-600 transition"
+            className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-emerald-100 hover:text-emerald-600 transition cursor-pointer select-none"
           >
             <ArrowLeft className="w-5 h-5" />
-          </button>
+          </div>
           <div>
             <h1 className="font-bold text-lg text-slate-800">{kategoriAktif.nama}</h1>
             <p className="text-xs text-slate-500">{kategoriAktif.jumlah} Bacaan</p>
@@ -464,10 +464,8 @@ export default function DoaPage() {
                 const isBuka = doaTerbuka === index;
 
                 return (
-                  // PERBAIKAN: Gunakan doa.judul sebagai key agar React tidak bingung saat animasi
-                  <div key={doa.judul} className={`bg-white rounded-2xl shadow-sm border transition-all duration-300 ${isBuka ? "border-emerald-300 ring-2 ring-emerald-50" : "border-gray-100"}`}>
+                  <div key={doa.judul} className={`bg-white rounded-2xl shadow-sm border transition-colors duration-300 ${isBuka ? "border-emerald-300 ring-2 ring-emerald-50" : "border-gray-100"}`}>
                     
-                    {/* PERBAIKAN: Ubah <button> menjadi <div> agar tidak bentrok di browser HP */}
                     <div 
                       onClick={() => setDoaTerbuka(isBuka ? null : index)} 
                       className="w-full p-4 flex items-start justify-between text-left cursor-pointer select-none"
@@ -476,7 +474,6 @@ export default function DoaPage() {
                         <div className={`p-2 rounded-lg shrink-0 transition-colors ${isBuka ? "bg-emerald-500 text-white" : "bg-emerald-50 text-emerald-600"}`}>
                           <BookHeart className="w-5 h-5" />
                         </div>
-                        {/* PERBAIKAN: Ubah <h2> menjadi <div> agar aman di semua browser */}
                         <div className={`font-bold mt-1 leading-snug transition-colors pr-2 ${isBuka ? "text-emerald-700" : "text-slate-700"}`}>
                           {doa.judul}
                         </div>
@@ -484,15 +481,15 @@ export default function DoaPage() {
                       <ChevronDown className={`w-5 h-5 mt-1 text-gray-400 shrink-0 transition-transform duration-300 ${isBuka ? "rotate-180 text-emerald-500" : ""}`} />
                     </div>
 
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isBuka ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                      <div className="px-5 pb-5">
+                    {isBuka && (
+                      <div className="px-5 pb-5 animate-in fade-in duration-300">
                         <div className="pt-4 border-t border-gray-100">
                           <p className="text-right text-2xl font-bold leading-loose text-slate-800 mb-4 mt-2" dir="rtl">{doa.arab}</p>
                           <p className="text-emerald-600 text-sm mb-2 font-medium">{doa.latin}</p>
                           <p className="text-slate-600 text-sm leading-relaxed italic">&quot;{doa.arti}&quot;</p>
                         </div>
                       </div>
-                    </div>
+                    )}
 
                   </div>
                 );
@@ -518,23 +515,24 @@ export default function DoaPage() {
         </p>
       </header>
 
+      {/* --- SISTEM TAB (DOA vs WIRID) --- */}
       <div className="flex bg-gray-200/60 p-1.5 rounded-xl mb-6">
-        <button
+        <div
           onClick={() => { setActiveTab("doa"); setKataKunci(""); }}
-          className={`flex-1 py-2.5 text-sm font-bold rounded-lg flex justify-center items-center gap-2 transition-all duration-300 ${
+          className={`flex-1 py-2.5 text-sm font-bold rounded-lg flex justify-center items-center gap-2 transition-all duration-300 cursor-pointer select-none ${
             activeTab === "doa" ? "bg-white text-emerald-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
           }`}
         >
           <BookMarked className="w-4 h-4" /> DOA PILIHAN
-        </button>
-        <button
+        </div>
+        <div
           onClick={() => { setActiveTab("wirid"); setKataKunci(""); }}
-          className={`flex-1 py-2.5 text-sm font-bold rounded-lg flex justify-center items-center gap-2 transition-all duration-300 ${
+          className={`flex-1 py-2.5 text-sm font-bold rounded-lg flex justify-center items-center gap-2 transition-all duration-300 cursor-pointer select-none ${
             activeTab === "wirid" ? "bg-white text-emerald-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
           }`}
         >
           <Sparkles className="w-4 h-4" /> WIRID & AMALAN
-        </button>
+        </div>
       </div>
 
       <div className="relative mb-6">
@@ -550,14 +548,14 @@ export default function DoaPage() {
         />
       </div>
 
+      {/* --- DAFTAR FOLDER KATEGORI --- */}
       <div className="grid grid-cols-1 gap-3">
         {kategoriTampil.map((kat) => (
-          // PERBAIKAN: Ubah <button> menjadi <div> di menu depan juga
           <div
             key={kat.id}
             onClick={() => {
               setKategoriAktif(kat);
-              setKataKunci(""); 
+              setKataKunci(""); // Kosongkan pencarian untuk layar selanjutnya
             }}
             className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:border-emerald-300 hover:shadow-md transition-all text-left group cursor-pointer select-none"
           >
