@@ -346,7 +346,12 @@ const databaseKategori: Kategori[] = [
             { judul: "Shalawat Thibbil Qulub", arab: "اللّٰهُمَّ صَلِّ عَلٰى سَيِّدِنَا مُحَمَّدٍ طِبِّ الْقُلُوْبِ وَدَوَائِهَا", latin: "Allahumma shalli 'alaa Sayyidinaa Muhammadin thibbil quluubi wa dawaa-ihaa", arti: "Ya Allah, berikanlah rahmat kepada junjungan kami Nabi Muhammad, sebagai pengobat hati dan penyembuhnya." },
             { judul: "Shalawat Jibril", arab: "صَلَّى اللهُ عَلَى مُحَمَّد", latin: "Shallallahu 'alaa Muhammad", arti: "Semoga Allah melimpahkan rahmat kepada Nabi Muhammad." },
             // Tambahan 31 shalawat (dengan judul bervariasi)
-            { judul: "Shalawat Nariyah", arab: "اللَّهُمَّ صَلِّ صَلَاةً كَامِلَةً وَسَلِّمْ سَلَامًا تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ", latin: "Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman 'alaa sayyidinaa muhammad", arti: "Ya Allah, limpahkanlah rahmat yang sempurna dan salam yang lengkap kepada junjungan kami Nabi Muhammad." },
+            {
+            judul: "Shalawat Nariyah",
+            arab: "اللَّهُمَّ صَلِّ صَلَاةً كَامِلَةً وَسَلِّمْ سَلَامًا تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ الَّذِي تَنْحَلُّ بِهِ الْعُقَدُ وَتَنْفَرِجُ بِهِ الْكُرَبُ وَتُقْضَى بِهِ الْحَوَائِجُ وَتُنَالُ بِهِ الرَّغَائِبُ وَحُسْنُ الْخَوَاتِمِ وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيمِ وَعَلَى آلِهِ وَصَحْبِهِ فِي كُلِّ لَمْحَةٍ وَنَفَسٍ بِعَدَدِ كُلِّ مَعْلُومٍ لَكَ",
+            latin: "Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman 'alaa sayyidinaa Muhammadin alladzi tanhallu bihil 'uqadu wa tanfariju bihil kurabu wa tuqdhaa bihil hawaaiju wa tunaalu bihir raghaa'ibu wa husnul khawaatimi wa yustasqal ghamaamu bi wajhihil kariimi wa 'alaa aalihi wa shahbihi fii kulli lamhatin wa nafasin bi 'adadi kulli ma'luumin laka.",
+            arti: "Ya Allah, limpahkanlah rahmat yang sempurna dan salam yang lengkap kepada junjungan kami Nabi Muhammad, yang dengan sebabnya terurai segala simpul (kesulitan), terlepas segala kesusahan, terpenuhi segala hajat, tercapai segala keinginan dan husnul khatimah, dan dengan wajahnya yang mulia dimohonkan turunnya hujan, dan semoga (rahmat dan salam) tercurah pula kepada keluarga dan para sahabatnya, pada setiap kedipan mata dan setiap hembusan nafas, sebanyak bilangan segala sesuatu yang Engkau ketahui."
+        },
             { judul: "Shalawat Badar", arab: "صَلَّى اللهُ عَلَى مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ", latin: "Shallallaahu 'alaa Muhammad shallallaahu 'alaihi wa sallam", arti: "Semoga Allah melimpahkan rahmat kepada Nabi Muhammad, semoga Allah melimpahkan rahmat dan salam kepadanya." },
             { judul: "Shalawat Munjiyat", arab: "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ", latin: "Allahumma shalli 'alaa sayyidinaa muhammadin shalaatan tunjiinaa bihaa min jamii'il ahwaal", arti: "Ya Allah, limpahkanlah rahmat kepada junjungan kami Nabi Muhammad, rahmat yang menyelamatkan kami dari segala ketakutan." },
             { judul: "Shalawat Fatih", arab: "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ الْفَاتِحِ لِمَا أُغْلِقَ", latin: "Allahumma shalli 'alaa sayyidinaa muhammadil faatihi limaa ughliq", arti: "Ya Allah, limpahkanlah rahmat kepada junjungan kami Nabi Muhammad, pembuka apa yang terkunci." },
@@ -574,3 +579,4 @@ export default function DoaPage() {
     </div>
   );
 }
+
