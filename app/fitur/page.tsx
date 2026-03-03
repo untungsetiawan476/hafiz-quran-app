@@ -26,27 +26,23 @@ export default function FiturTambahanPage() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleOrientation = (e: any) => {
       let compassHeading = 0;
-      
       if (e.webkitCompassHeading) {
-        // Khusus iOS
         compassHeading = e.webkitCompassHeading;
       } else if (e.absolute && e.alpha !== null) {
-        // Android dengan absolute orientasi
         compassHeading = 360 - e.alpha;
       } else if (e.alpha !== null) {
-        // Fallback Android standar
         compassHeading = 360 - e.alpha;
       }
-
       setHeading(Math.floor(compassHeading));
     };
 
-    // Deteksi metode event yang didukung browser
+    // PERBAIKAN: Gunakan (window as any) di KEDUA kondisi agar build tidak error
     if ('ondeviceorientationabsolute' in window) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).addEventListener("deviceorientationabsolute", handleOrientation, true);
     } else {
-      window.addEventListener("deviceorientation", handleOrientation, true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).addEventListener("deviceorientation", handleOrientation, true);
     }
   };
 
