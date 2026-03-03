@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, BookOpen, Bookmark, ChevronRight } from "lucide-react";
+// Tambahkan ikon Coffee untuk tombol Saweria
+import { Search, BookOpen, Bookmark, ChevronRight, Coffee } from "lucide-react";
 
 interface Surah {
   nomor: number;
@@ -56,16 +57,30 @@ export default function HomePage() {
       {/* --- HEADER --- */}
       <div className="bg-emerald-600 dark:bg-emerald-800 p-6 pt-10 rounded-b-[40px] shadow-sm text-center transition-colors duration-300 relative overflow-hidden">
         <h1 className="text-2xl font-bold text-white mb-2 relative z-10">Al-Quran</h1>
-        <p className="text-emerald-100 text-sm relative z-10">Baca dan dengarkan lantunan ayat suci</p>
+        <p className="text-emerald-100 text-sm mb-5 relative z-10">Baca dan dengarkan lantunan ayat suci</p>
+        
+        {/* --- TOMBOL SAWERIA (GLASSMORPHISM) --- */}
+        <a 
+          href="https://saweria.co/Untungsetiawan" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-full backdrop-blur-md transition-all active:scale-95 border border-white/20 relative z-10 shadow-sm"
+        >
+          <Coffee className="w-4 h-4" />
+          Dukung via Saweria
+        </a>
+        
+        {/* Ornamen Latar Header */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 blur-xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-black opacity-10 rounded-full -ml-10 -mb-10 blur-lg"></div>
       </div>
 
       <div className="px-5 mt-6">
         
-        {/* --- KARTU "LANJUTKAN MEMBACA" (Hanya Muncul Jika Ada Bookmark) --- */}
+        {/* --- KARTU "LANJUTKAN MEMBACA" --- */}
         {bookmark && (
           <Link href={`/mengaji/${bookmark.idSurah}`}>
             <div className="bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-3xl p-6 text-white mb-6 shadow-lg shadow-emerald-200 dark:shadow-none relative overflow-hidden group active:scale-[0.98] transition-all cursor-pointer border border-emerald-400 dark:border-emerald-600">
-              {/* Ornamen Transparan */}
               <BookOpen className="absolute -bottom-4 -right-4 w-32 h-32 text-white opacity-10 transform -rotate-12 group-hover:scale-110 transition-transform duration-500" />
               
               <div className="relative z-10 flex items-center justify-between">
