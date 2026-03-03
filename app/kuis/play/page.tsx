@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, useRef, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { CheckCircle2, XCircle, Trophy, ArrowRight, RotateCcw, Home, HelpCircle, Mic, MicOff, RefreshCw, ListFilter } from "lucide-center";
+import { CheckCircle2, XCircle, Trophy, ArrowRight, RotateCcw, Home, HelpCircle, Mic, MicOff, RefreshCw, ListFilter } from "lucide-react";
 
 interface Ayat {
   nomorAyat: number;
@@ -26,7 +26,6 @@ function PapanKuis() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  // Ambil parameter dari URL
   const idSurah = searchParams.get("surah") || "1";
   const ayatMulai = parseInt(searchParams.get("mulai") || "1");
   const ayatAkhir = parseInt(searchParams.get("akhir") || "7");
@@ -48,12 +47,10 @@ function PapanKuis() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
 
-  // --- FUNGSI HANDLE JAWAB ---
   const handleJawab = useCallback((nomorAyatTerpilih: number) => {
     setJawabanTerpilih((current) => {
-      if (current !== null) return current; // Cegah jawab dua kali
+      if (current !== null) return current; 
       
-      // Update skor secara fungsional agar tidak trigger re-render loop
       if (nomorAyatTerpilih === daftarSoal[indeksSoal]?.jawabanBenar?.nomorAyat) {
         setSkor((prev) => prev + 10);
       }
@@ -61,7 +58,6 @@ function PapanKuis() {
     });
   }, [daftarSoal, indeksSoal]);
 
-  // --- FUNGSI VALIDASI SUARA ---
   const validasiSuara = useCallback((input: string) => {
     if (!daftarSoal[indeksSoal]) return;
     const target = bersihkanArab(daftarSoal[indeksSoal].jawabanBenar.teksArab);
@@ -75,7 +71,6 @@ function PapanKuis() {
     }
   }, [daftarSoal, indeksSoal, handleJawab]);
 
-  // --- EFFECT 1: AMBIL DATA (HANYA SEKALI) ---
   useEffect(() => {
     let isMounted = true;
 
@@ -111,7 +106,6 @@ function PapanKuis() {
     return () => { isMounted = false; };
   }, [idSurah, ayatMulai, ayatAkhir, targetSoal]);
 
-  // --- EFFECT 2: SETUP SPEECH RECOGNITION ---
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
