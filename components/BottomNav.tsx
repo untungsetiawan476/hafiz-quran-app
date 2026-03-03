@@ -7,10 +7,10 @@ import { CalendarClock, BookOpen, Gamepad2, Heart, Settings } from "lucide-react
 export default function BottomNav() {
   const pathname = usePathname();
 
-  // Daftar menu navigasi
+  // Daftar menu navigasi (Perhatikan path Mengaji sekarang mengarah ke "/")
   const navItems = [
     { name: "Jadwal", path: "/jadwal", icon: CalendarClock },
-    { name: "Mengaji", path: "/mengaji", icon: BookOpen },
+    { name: "Mengaji", path: "/", icon: BookOpen }, 
     { name: "Kuis", path: "/kuis", icon: Gamepad2 },
     { name: "Doa", path: "/doa", icon: Heart },
     { name: "Fitur", path: "/fitur", icon: Settings },
@@ -29,8 +29,14 @@ export default function BottomNav() {
         
         <div className="flex justify-around items-center p-2 max-w-md mx-auto">
           {navItems.map((item) => {
-            // Cek apakah tab ini sedang aktif
-            const isActive = pathname === item.path || pathname?.startsWith(item.path + "/");
+            
+            // LOGIKA PINTAR: Cek apakah tab ini sedang aktif
+            // Khusus tab Mengaji ("/"), dia akan aktif di halaman depan ATAU saat masuk ke bacaan ayat (/mengaji/1)
+            const isActive = 
+              item.path === "/" 
+                ? pathname === "/" || pathname?.startsWith("/mengaji/") 
+                : pathname === item.path || pathname?.startsWith(item.path + "/");
+            
             const Icon = item.icon;
 
             return (
