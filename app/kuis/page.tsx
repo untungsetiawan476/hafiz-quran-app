@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Settings, Play, BookOpen, Search, ChevronDown, ListOrdered } from "lucide-react";
+import { Settings, Play, BookOpen, Search, ChevronDown, ListOrdered, Award, Target } from "lucide-react";
 
 interface Surah {
   nomor: number;
@@ -22,6 +22,9 @@ export default function PersiapanKuisPage() {
   const [isDropdownBuka, setIsDropdownBuka] = useState(false);
   const [kataKunci, setKataKunci] = useState("");
 
+  const [stats, setStats] = useState({ highScore: 0, totalSoal: 0 });
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
     fetch("https://equran.id/api/v2/surat")
       .then((res) => res.json())
@@ -33,10 +36,18 @@ export default function PersiapanKuisPage() {
           setAyatAkhir(surahPertama.jumlahAyat);
         }
       });
+
+    // PERBAIKAN: Gunakan setTimeout untuk menghindari warning "synchronous setState in Effect"
+    setTimeout(() => {
+      const simpananLokal = localStorage.getItem("kuisStatsApp");
+      if (simpananLokal) {
+        setStats(JSON.parse(simpananLokal));
+      }
+      setIsMounted(true);
+    }, 0);
   }, []);
 
   const detailSurahTerpilih = daftarSurah.find((s) => s.nomor === surahTerpilih);
-
   const totalTersedia = ayatAkhir - ayatMulai;
   const maxSoal = Math.min(totalTersedia > 0 ? totalTersedia : 1, 30);
   const soalValid = Math.min(jumlahSoalPilihan, maxSoal); 
@@ -68,14 +79,36 @@ export default function PersiapanKuisPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-24 relative">
-      {/* HEADER MINIMALIS (Sama seperti Doa & Tasbih) */}
-      <div className="bg-emerald-600 p-6 pt-10 rounded-b-3xl mb-6 text-center">
-        <h1 className="text-2xl font-bold text-white mb-2">Sambung Ayat</h1>
-        <p className="text-emerald-100 text-sm">Uji hafalanmu dengan metode interaktif</p>
+      <div className="bg-emerald-600 p-6 pt-10 rounded-b-[40px] text-center pb-14 relative overflow-hidden">
+        <h1 className="text-2xl font-bold text-white mb-2 relative z-10">Sambung Ayat</h1>
+        <p className="text-emerald-100 text-sm relative z-10">Uji hafalanmu dengan metode interaktif</p>
       </div>
 
-      <div className="px-5">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col gap-6 w-full max-w-full">
+      <div className="px-5 -mt-10 relative z-10">
+        {isMounted && (
+          <div className="flex gap-3 mb-6">
+            <div className="flex-1 bg-white p-4 rounded-2xl border border-yellow-100 shadow-sm flex items-center gap-3">
+              <div className="p-3 bg-yellow-50 text-yellow-500 rounded-xl">
+                <Award className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Rekor Terbaik</p>
+                <p className="text-xl font-black text-slate-700 leading-none mt-1">{stats.highScore}</p>
+              </div>
+            </div>
+            <div className="flex-1 bg-white p-4 rounded-2xl border border-blue-100 shadow-sm flex items-center gap-3">
+              <div className="p-3 bg-blue-50 text-blue-500 rounded-xl">
+                <Target className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Total Dijawab</p>
+                <p className="text-xl font-black text-slate-700 leading-none mt-1">{stats.totalSoal}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col gap-6 w-full max-w-full shadow-sm">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
               <Settings className="w-6 h-6" />
@@ -202,7 +235,7 @@ export default function PersiapanKuisPage() {
 
           <button
             onClick={handleMulaiUjian}
-            className="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98] flex justify-center items-center gap-2"
+            className="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98] flex justify-center items-center gap-2 shadow-md"
           >
             <Play className="w-5 h-5 fill-current" />
             MULAI UJIAN
