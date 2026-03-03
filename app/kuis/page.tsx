@@ -37,7 +37,6 @@ export default function PersiapanKuisPage() {
         }
       });
 
-    // PERBAIKAN: Gunakan setTimeout untuk menghindari warning "synchronous setState in Effect"
     setTimeout(() => {
       const simpananLokal = localStorage.getItem("kuisStatsApp");
       if (simpananLokal) {
@@ -84,7 +83,8 @@ export default function PersiapanKuisPage() {
         <p className="text-emerald-100 text-sm relative z-10">Uji hafalanmu dengan metode interaktif</p>
       </div>
 
-      <div className="px-5 -mt-10 relative z-10">
+      {/* PERBAIKAN: Mengubah z-10 menjadi z-20 agar berada di atas latar transparan */}
+      <div className="px-5 -mt-10 relative z-20">
         {isMounted && (
           <div className="flex gap-3 mb-6">
             <div className="flex-1 bg-white p-4 rounded-2xl border border-yellow-100 shadow-sm flex items-center gap-3">
@@ -108,7 +108,7 @@ export default function PersiapanKuisPage() {
           </div>
         )}
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col gap-6 w-full max-w-full shadow-sm">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col gap-6 w-full max-w-full shadow-sm relative">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
               <Settings className="w-6 h-6" />
@@ -116,7 +116,8 @@ export default function PersiapanKuisPage() {
             <h2 className="font-semibold text-lg text-slate-800">Pengaturan Ujian</h2>
           </div>
 
-          <div className="relative z-20">
+          {/* PERBAIKAN: z-index ditingkatkan agar aman */}
+          <div className="relative z-50">
             <label className="text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-emerald-500" />
               Pilih Surah
@@ -134,7 +135,8 @@ export default function PersiapanKuisPage() {
             </button>
 
             {isDropdownBuka && (
-              <div className="absolute top-20 left-0 w-full bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden flex flex-col">
+              // PERBAIKAN: Menambahkan z-50 agar list dropdown mutlak paling atas
+              <div className="absolute top-20 left-0 w-full bg-white border border-slate-200 rounded-xl shadow-2xl overflow-hidden flex flex-col z-50">
                 <div className="p-3 border-b border-slate-100 bg-slate-50 relative">
                   <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
                     <Search className="h-4 w-4 text-slate-400" />
@@ -148,7 +150,7 @@ export default function PersiapanKuisPage() {
                     autoFocus
                   />
                 </div>
-                <ul className="max-h-60 overflow-y-auto">
+                <ul className="max-h-60 overflow-y-auto relative z-50">
                   {surahTampil.map((surah) => (
                     <li key={surah.nomor}>
                       <button
