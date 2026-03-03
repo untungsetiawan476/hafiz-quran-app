@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense, useRef } from "react";
+import { useState, useEffect, Suspense, useRef, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { CheckCircle2, XCircle, Trophy, ArrowRight, RotateCcw, Home, HelpCircle, Mic, MicOff, RefreshCw } from "lucide-react";
 
@@ -18,7 +18,6 @@ interface Soal {
   pilihan: Ayat[];
 }
 
-// --- FUNGSI PEMBERSIH ARAB (KUNCI UTAMA MODE SUARA) ---
 const bersihkanArab = (text: string) => {
   return text.replace(/[\u064B-\u0652\u0670\u0671\u06D6-\u06ED]/g, "");
 };
@@ -40,11 +39,33 @@ function PapanKuis() {
   const [kuisSelesai, setKuisSelesai] = useState(false);
   const [isRekorBaru, setIsRekorBaru] = useState(false);
 
-  // --- STATE KHUSUS KUIS SUARA ---
   const [isListening, setIsListening] = useState(false);
   const [hasilSuara, setHasilSuara] = useState("");
   const [pesanVoice, setPesanVoice] = useState("");
   const recognitionRef = useRef<any>(null);
+
+  // --- HANDLE JAWAB (DIPINDAH KE ATAS AGAR BISA DIAKSES) ---
+  const handleJawab = useCallback((nomorAyatTerpilih: number) => {
+    if (jawabanTerpilih !== null) return; 
+    setJawabanTerpilih(nomorAyatTerpilih);
+    if (nomorAyatTerpilih === daftarSoal[indeksSoal]?.jawabanBenar?.nomorAyat) {
+      setSkor((prev) => prev + 10);
+    }
+  }, [jawabanTerpilih, daftarSoal, indeksSoal]);
+
+  // --- VALIDASI SUARA (DIPINDAH KE ATAS) ---
+  const validasiSuara = useCallback((input: string) => {
+    if (!daftarSoal[indeksSoal]) return;
+    const target = bersihkanArab(daftarSoal[indeksSoal].jawabanBenar.teksArab);
+    const user = bersihkanArab(input);
+
+    if (user.includes(target) || target.includes(user)) {
+      handleJawab(daftarSoal[indeksSoal].jawabanBenar.nomorAyat);
+      setPesanVoice("Jawaban tepat!");
+    } else {
+      setPesanVoice("Belum tepat, coba lagi.");
+    }
+  }, [daftarSoal, indeksSoal, handleJawab]);
 
   useEffect(() => {
     fetch(`https://equran.id/api/v2/surat/${idSurah}`)
@@ -77,7 +98,6 @@ function PapanKuis() {
         setIsLoading(false);
       });
 
-    // Inisialisasi Web Speech API
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (SpeechRecognition) {
       recognitionRef.current = new SpeechRecognition();
@@ -97,27 +117,7 @@ function PapanKuis() {
         setIsListening(false);
       };
     }
-  }, [idSurah, ayatMulai, ayatAkhir, targetSoal]);
-
-  const validasiSuara = (input: string) => {
-    const target = bersihkanArab(daftarSoal[indeksSoal].jawabanBenar.teksArab);
-    const user = bersihkanArab(input);
-
-    if (user.includes(target) || target.includes(user)) {
-      handleJawab(daftarSoal[indeksSoal].jawabanBenar.nomorAyat);
-      setPesanVoice("Jawaban tepat!");
-    } else {
-      setPesanVoice("Belum tepat, coba lagi.");
-    }
-  };
-
-  const handleJawab = (nomorAyatTerpilih: number) => {
-    if (jawabanTerpilih !== null) return; 
-    setJawabanTerpilih(nomorAyatTerpilih);
-    if (nomorAyatTerpilih === daftarSoal[indeksSoal].jawabanBenar.nomorAyat) {
-      setSkor((prev) => prev + 10);
-    }
-  };
+  }, [idSurah, ayatMulai, ayatAkhir, targetSoal, validasiSuara]);
 
   const handleLanjut = () => {
     setHasilSuara("");
@@ -174,7 +174,7 @@ function PapanKuis() {
         <div className="bg-white/20 p-8 rounded-full mb-8">
           <Trophy className="w-24 h-24 text-white" />
         </div>
-        <h1 className="text-4xl font-bold text-white mb-2">Masya Allah!</h1>
+        <h1 className="text-4xl font-bold text-white mb-2 tracking-wide">Masya Allah!</h1>
         <p className="text-emerald-100 mb-10 font-medium">Ujian Hafalan Selesai</p>
         <div className="bg-white p-8 rounded-4xl shadow-lg w-full mb-10">
           <p className="text-sm font-bold text-slate-400 uppercase mb-4">Total Skor Anda</p>
@@ -221,7 +221,7 @@ function PapanKuis() {
                <HelpCircle className="w-8 h-8" />
              </div>
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-400 font-bold mb-4 uppercase tracking-tighter">Sambunglah Ayat Ini:</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 font-bold mb-4 uppercase tracking-tighter">Apa kelanjutan ayat di bawah ini?</p>
           <div className="mb-6">
             <p className="text-3xl font-bold leading-[1.8] text-slate-800 dark:text-white" dir="rtl">
               {soalSekarang.ayatSoal.teksArab}
@@ -232,7 +232,6 @@ function PapanKuis() {
           </div>
         </div>
 
-        {/* --- TOMBOL PILIHAN GANDA --- */}
         <div className="flex flex-col gap-3">
           {soalSekarang.pilihan.map((pilihan) => {
             const isTerpilih = jawabanTerpilih === pilihan.nomorAyat;
@@ -259,9 +258,8 @@ function PapanKuis() {
           })}
         </div>
 
-        {/* --- MODE SUARA (BETA) --- */}
         {jawabanTerpilih === null && (
-          <div className="mt-8 p-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-3xl border-2 border-dashed border-emerald-200 dark:border-emerald-800 text-center animate-in fade-in slide-in-from-bottom-4 transition-all">
+          <div className="mt-8 p-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-3xl border-2 border-dashed border-emerald-200 dark:border-emerald-800 text-center transition-all">
             <div className="flex items-center justify-center gap-2 mb-3">
               <span className="bg-yellow-400 text-yellow-900 text-[9px] font-black px-2 py-0.5 rounded uppercase">Beta</span>
               <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400">JAWAB DENGAN SUARA</p>
