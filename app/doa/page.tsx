@@ -10,9 +10,8 @@ import {
 interface DoaItem { judul: string; arab: string; latin: string; arti: string; }
 interface Kategori { id: string; nama: string; tipe: "doa" | "wirid"; jumlah: number; list: DoaItem[]; }
 
-// --- DATABASE LOKAL (SUPER LENGKAP) ---
+// --- DATABASE LOKAL ---
 const databaseKategori: Kategori[] = [
-  // ================= KATEGORI DOA =================
   { 
     id: "d1", 
     nama: "Doa Keseharian", 
@@ -35,7 +34,7 @@ const databaseKategori: Kategori[] = [
       { judul: "Doa Setelah Belajar", arab: "اللَّهُمَّ أَرِنَا الْحَقَّ حَقًّا وَارْزُقْنَا اتِّبَاعَهُ، وَأَرِنَا الْبَاطِلَ بَاطِلًا وَارْزُقْنَا اجْتِنَابَهُ", latin: "Allahumma arinal haqqa haqqan warzuqnat tibaa'ah, wa arinal baathila baathilan warzuqnaj tinaabah", arti: "Ya Allah, tunjukkanlah kepada kami yang benar itu benar dan karuniakanlah kami kekuatan untuk mengikutinya, dan tunjukkanlah kepada kami yang batil itu batil dan karuniakanlah kami kekuatan untuk menjauhinya." },
       { judul: "Doa Masuk Pasar", arab: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ حَيٌّ لَا يَمُوتُ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", latin: "Laa ilaaha illallah wahdahu laa syariikalah, lahul mulku wa lahul hamdu yuhyi wa yumiitu wa huwa hayyun laa yamuutu biyadihil khairu wa huwa 'alaa kulli syai-in qadiir", arti: "Tiada Tuhan selain Allah Yang Maha Esa, tiada sekutu bagi-Nya, milik-Nya kerajaan dan milik-Nya pujian, Dia menghidupkan dan mematikan, Dia Maha Hidup tidak mati, di tangan-Nya kebaikan, dan Dia Maha Kuasa atas segala sesuatu." },
       { judul: "Doa Ketika Marah", arab: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ", latin: "A'uudzu billaahi minasy syaithaanir rajiim", arti: "Aku berlindung kepada Allah dari godaan setan yang terkutuk." },
-      { judul: "Doa Ketika Mendapat Musibah", arab: "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا", latin: "Innaa lillaahi wa innaa ilaihi raaji'uun, allahumma ajurnii fii mushiibatii wa akhlif lii khairan minhaa", arti: "Sesungguhnya kami milik Allah dan kepada-Nya kami kembali. Ya Allah, berilah aku pahala dalam musibahku dan gantilah dengan yang lebih baik." },
+      { judul: "Doa Ketika Mendapat Musibah", arab: "إِنَّ لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا", latin: "Innaa lillaahi wa innaa ilaihi raaji'uun, allahumma ajurnii fii mushiibatii wa akhlif lii khairan minhaa", arti: "Sesungguhnya kami milik Allah dan kepada-Nya kami kembali. Ya Allah, berilah aku pahala dalam musibahku dan gantilah dengan yang lebih baik." },
       { judul: "Doa Mohon Dijauhkan dari Penyakit", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْبَرَصِ وَالْجُنُونِ وَالْجُذَامِ وَمِنْ سَيِّئِ الْأَسْقَامِ", latin: "Allahumma innii a'uudzu bika minal barashi wal junuuni wal judzaami wa min sayyi-il asqaam", arti: "Ya Allah, aku berlindung kepada-Mu dari penyakit belang, gila, kusta, dan dari segala penyakit yang buruk." },
       { judul: "Doa Memohon Keselamatan Dunia Akhirat", arab: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", latin: "Rabbanaa aatinaa fiddunyaa hasanah wa fil aakhirati hasanah wa qinaa 'adzaaban naar", arti: "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka." }
     ] 
@@ -71,10 +70,10 @@ const databaseKategori: Kategori[] = [
       { judul: "Doa Tolak Bala 3", arab: "اللَّهُمَّ إِنَّا نَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَغَلَبَةِ الْعَدُوِّ وَشَمَاتَةِ الْأَعْدَاءِ", latin: "Allahumma innaa na'uudzu bika min ghalabatid daini wa ghalabatil 'aduwwi wa syamaatatil a'daa-i", arti: "Ya Allah, kami berlindung kepada-Mu dari lilitan hutang, kekalahan dari musuh, dan kegembiraan musuh." },
       { judul: "Doa Tolak Bala 4", arab: "اللَّهُمَّ اكْفِنَا شَرَّ مَا قَدَّرْتَ وَصَرَفْتَ عَنَّا شَرَّ مَا قَضَيْتَ", latin: "Allahummakfinaa syarra maa qaddarta wa sharaf 'annaa syarra maa qadhaitha", arti: "Ya Allah, cukupkanlah kami dari kejahatan apa yang Engkau takdirkan dan palingkanlah dari kami kejahatan apa yang Engkau putuskan." },
       { judul: "Doa Tolak Bala 5", arab: "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ", latin: "Hasbunallahu wa ni'mal wakiil", arti: "Cukuplah Allah menjadi penolong kami dan Allah adalah sebaik-baik pelindung." },
-      { judul: "Doa Tolak Bala 6", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ", latin: "Allahumma innii a'uudzu bika min zawaali ni'matika wa tahawwuli 'aafiyatika wa fujaa'ati niqmatika wa jamii'i sakhathika", arti: "Ya Allah, aku berlindung kepada-Mu dari hilangnya nikmat-Mu, berubahnya kesehatan-Mu, datangnya siksa-Mu secara tiba-tiba, dan semua kemurkaan-Mu." },
+      { judul: "Doa Tolak Bala 6", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَAA’ATI نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ", latin: "Allahumma innii a'uudzu bika min zawaali ni'matika wa tahawwuli 'aafiyatika wa fujaa'ati niqmatika wa jamii'i sakhathika", arti: "Ya Allah, aku berlindung kepada-Mu dari hilangnya nikmat-Mu, berubahnya kesehatan-Mu, datangnya siksa-Mu secara tiba-tiba, dan semua kemurkaan-Mu." },
       { judul: "Doa Tolak Bala 7", arab: "اللَّهُمَّ إِنَّا نَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَنَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ", latin: "Allahumma innaa na'uudzu bika minal hammi wal hazani wa na'uudzu bika minal 'ajzi wal kasali", arti: "Ya Allah, kami berlindung kepada-Mu dari rasa sedih dan gelisah, dan kami berlindung kepada-Mu dari kelemahan dan kemalasan." },
       { judul: "Doa Tolak Bala 8", arab: "رَبَّنَا لَا تُؤَاخِذْنَا إِنْ نَسِينَا أَوْ أَخْطَأْنَا", latin: "Rabbanaa laa tu'aakhidznaa in nasiinaa aw akhtha'naa", arti: "Ya Tuhan kami, janganlah Engkau hukum kami jika kami lupa atau kami salah." },
-      { judul: "Doa Tolak Bala 9", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ", latin: "Allahumma innii as-alukal 'aafiyah fid dunyaa wal aakhirah", arti: "Ya Allah, aku memohon kepada-Mu keselamatan di dunia dan akhirat." }
+      { judul: "Doa Tolak Bala 9", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ", latin: "Allahumma innii as-alukal 'aafiyah fid dunyaa wal aakhirah", arti: "Ya Allah, aku memohon kepada-Mu keselamatan di dunia dan akhirat." }
     ]
   },
   { 
@@ -149,7 +148,7 @@ const databaseKategori: Kategori[] = [
     jumlah: 10, 
     list: [
       { judul: "Doa Memperbaiki Diri 1", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُنِي إِلَى حُبِّكَ", latin: "Allahumma innii as-aluka hubbaka wa hubba man yuhibbuka wa hubba 'amalin yuqarribunii ilaa hubbik", arti: "Ya Allah, aku memohon kepada-Mu cinta-Mu, cinta orang yang mencintai-Mu, dan cinta amalan yang mendekatkanku kepada cinta-Mu." },
-      { judul: "Doa Memperbaiki Diri 2", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى", latin: "Allahumma innii as-alukal hudaa wat tuqaa wal 'afaafa wal ghinaa", arti: "Ya Allah, aku memohon kepada-Mu petunjuk, ketakwaan, kesucian diri, dan kekayaan hati." },
+      { judul: "Doa Memperbaiki Diri 2", arab: "اللَّهُمَّ إِنِّي أَS-ALUKA الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى", latin: "Allahumma innii as-alukal hudaa wat tuqaa wal 'afaafa wal ghinaa", arti: "Ya Allah, aku memohon kepada-Mu petunjuk, ketakwaan, kesucian diri, dan kekayaan hati." },
       { judul: "Doa Memperbaiki Diri 3", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ وَالْجُبْنِ وَالْبُخْلِ وَالْهَرَمِ وَعَذَابِ الْقَبْرِ", latin: "Allahumma innii a'uudzu bika minal 'ajzi wal kasali wal jubni wal bukhli wal harami wa 'adzaabil qabri", arti: "Ya Allah, aku berlindung kepada-Mu dari kelemahan, kemalasan, sifat pengecut, kekikiran, pikun, dan azab kubur." },
       { judul: "Doa Memperbaiki Diri 4", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ", latin: "Allahumma innii as-aluka minal khairi kullihi 'aajilihi wa aajilihi maa 'alimtu minhu wa maa lam a'lam", arti: "Ya Allah, aku memohon kepada-Mu kebaikan semuanya, yang segera dan yang lambat, yang aku ketahui maupun yang tidak aku ketahui." },
       { judul: "Doa Memperbaiki Diri 5", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ مُنْكَرَاتِ الْأَخْلَاقِ وَالْأَعْمَالِ وَالْأَهْوَاءِ", latin: "Allahumma innii a'uudzu bika munkaraatil akhlaaqi wal a'maali wal ahwaa-i", arti: "Ya Allah, aku berlindung kepada-Mu dari akhlak, amalan, dan hawa nafsu yang mungkar." },
@@ -255,9 +254,9 @@ const databaseKategori: Kategori[] = [
     tipe: "doa", 
     jumlah: 20, 
     list: [
-      { judul: "1. Doa Usai Shalat Fardhu", arab: "أَسْتَغْفِرُ اللهَ الْعَظِـيْمَ لِيْ وَلِوَالِدَيَّ...", latin: "Astaghfirullâh al-`adhîm...", arti: "Aku memohon ampunan kepada Allah yang Mahaagung..." },
+      { judul: "1. Doa Usai Shalat Fardhu", arab: "أَسْتَغْفِرُ اللهَ الْعَظِـيْمَ لِيْ وَلِوَALIDAIYYA...", latin: "Astaghfirullâh al-`adhîm...", arti: "Aku memohon ampunan kepada Allah yang Mahaagung..." },
       { judul: "2. Doa Usai Shalat Dhuha", arab: "اَللّٰهُمَّ إِنَّ الضَّحَآءَ ضَحَاءُكَ...", latin: "Allâhumma innad dlaḫâ’a dlaḫâ’uka...", arti: "Wahai Tuhanku, sungguh dhuha ini adalah dhuha-Mu..." },
-      { judul: "Doa Iftitah 1", arab: "اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ خَطَايَايَ كَمَا بَاعَدْتَ بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ", latin: "Allahumma ba'id bainii wa baina khathaayaaya kamaa ba'adta bainal masyriqi wal maghrib", arti: "Ya Allah, jauhkanlah antara aku dan dosa-dosaku sebagaimana Engkau jauhkan antara timur dan barat." },
+      { judul: "Doa Iftitah 1", arab: "اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ خَطَايَايَ كَمَا بَاعَدْتَ بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ", latin: "Allahumma ba'id bainii wa baina khathaayaaya kamaa ba'adta bainal masyriqi wal maghrib", arti: "Ya Allah, jauhkanlah antara aku and dosa-dosaku sebagaimana Engkau jauhkan antara timur dan barat." },
       { judul: "Doa Iftitah 2", arab: "اللَّهُمَّ رَبَّ جِبْرَائِيلَ وَمِيكَائِيلَ وَإِسْرَافِيلَ فَاطِرَ السَّمَوَاتِ وَالْأَرْضِ", latin: "Allahumma rabba jibraa-iila wa miikaa-iila wa israafiila faathiras samaawaati wal ardhi", arti: "Ya Allah, Tuhan Jibril, Mikail, dan Israfil, Pencipta langit dan bumi." },
       { judul: "Doa Ruku'", arab: "سُبْحَانَ رَبِّيَ الْعَظِيمِ", latin: "Subhaana rabbiyal 'azhiim", arti: "Maha Suci Tuhanku Yang Maha Agung." },
       { judul: "Doa I'tidal", arab: "رَبَّنَا لَكَ الْحَمْدُ مِلْءَ السَّمَوَاتِ وَمِلْءَ الْأَرْضِ", latin: "Rabbanaa lakal hamdu mil'as samaawaati wa mil'al ardhi", arti: "Ya Tuhan kami, bagi-Mu segala puji sepenuh langit dan bumi." },
@@ -268,7 +267,7 @@ const databaseKategori: Kategori[] = [
       { judul: "Doa Qunut Witir", arab: "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ", latin: "Allahumma innaa nasta'iinuka wa nastaghfiruka wa nu'minu bika wa natawakkalu 'alaika", arti: "Ya Allah, kami memohon pertolongan dan ampunan kepada-Mu, kami beriman kepada-Mu dan bertawakal kepada-Mu." },
       { judul: "Doa Setelah Shalat Tahajud", arab: "اللَّهُمَّ رَبَّنَا لَكَ الْحَمْدُ أَنْتَ قَيِّمُ السَّمَوَاتِ وَالْأَرْضِ", latin: "Allahumma rabbanaa lakal hamdu anta qayyimus samaawaati wal ardhi", arti: "Ya Allah, Tuhan kami, bagi-Mu segala puji, Engkau yang menegakkan langit dan bumi." },
       { judul: "Doa Setelah Shalat Witir", arab: "سُبْحَانَ الْمَلِكِ الْقُدُّوسِ", latin: "Subhaanal malikil qudduus", arti: "Maha Suci Tuhan Yang Maha Merajai, Maha Suci." },
-      { judul: "Doa Shalat Istikharah", arab: "اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ", latin: "Allahumma innii astakhiiruka bi'ilmika wa astaqdiruka biqudratika", arti: "Ya Allah, aku memohon pilihan yang terbaik kepada-Mu dengan ilmu-Mu, dan aku memohon kekuatan kepada-Mu dengan kekuasaan-Mu." },
+      { judul: "Doa Shalat Istikharah", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ", latin: "Allahumma innii astakhiiruka bi'ilmika wa astaqdiruka biqudratika", arti: "Ya Allah, aku memohon pilihan yang terbaik kepada-Mu dengan ilmu-Mu, dan aku memohon kekuatan kepada-Mu dengan kekuasaan-Mu." },
       { judul: "Doa Shalat Hajat", arab: "لَا إِلَهَ إِلَّا اللَّهُ الْحَلِيمُ الْكَرِيمُ، سُبْحَانَ اللَّهِ رَبِّ الْعَرْشِ الْعَظِيمِ", latin: "Laa ilaaha illallahul haliimul kariim, subhaanallahi rabbil 'arsyil 'azhiim", arti: "Tiada Tuhan selain Allah Yang Maha Penyantun lagi Maha Mulia, Maha Suci Allah, Tuhan 'Arsy yang agung." },
       { judul: "Doa Shalat Taubat", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنِّي أَشْهَدُ أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ الْأَحَدُ الصَّمَدُ", latin: "Allahumma innii as-aluka bi annii asyhadu annaka antallahu laa ilaaha illaa antal ahadush shamad", arti: "Ya Allah, aku memohon kepada-Mu dengan bersaksi bahwa Engkau adalah Allah, tiada Tuhan selain Engkau, Yang Maha Esa, tempat meminta." },
       { judul: "Doa Shalat Dhuha", arab: "اللَّهُمَّ إِنَّ الضَّحَاءَ ضَحَاءُكَ وَالْبَهَاءَ بَهَاءُكَ وَالْجَمَالَ جَمَالُكَ", latin: "Allahumma innad dhuhaa'a dhuhaa'uka wal bahaa'a bahaa'uka wal jamaala jamaaluka", arti: "Ya Allah, sesungguhnya waktu dhuha adalah dhuha-Mu, keindahan adalah keindahan-Mu, dan kecantikan adalah kecantikan-Mu." },
@@ -289,14 +288,14 @@ const databaseKategori: Kategori[] = [
       { judul: "Doa Thawaf", arab: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", latin: "Rabbanaa aatinaa fiddunyaa hasanah wa fil aakhirati hasanah wa qinaa 'adzaaban naar", arti: "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka." },
       { judul: "Doa Sa'i", arab: "رَبِّ اغْفِرْ وَارْحَمْ وَأَنْتَ الْأَعَزُّ الْأَكْرَمُ", latin: "Rabbighfir warham wa antal a'azzul akram", arti: "Ya Tuhanku, ampunilah dan rahmatilah, Engkaulah Yang Maha Perkasa lagi Maha Mulia." },
       { judul: "Doa di Multazam", arab: "اللَّهُمَّ إِنَّ لَكَ حَقًّا فَاغْفِرْ لِي", latin: "Allahumma inna laka haqqan faghfir lii", arti: "Ya Allah, sesungguhnya bagi-Mu hak (atas diriku), maka ampunilah aku." },
-      { judul: "Doa di Hijr Ismail", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", latin: "Allahumma innii as-alukal jannata wa a'uudzu bika minan naar", arti: "Ya Allah, aku memohon kepada-Mu surga dan aku berlindung kepada-Mu dari neraka." },
+      { judul: "Doa di Hijr Ismail", arab: "اللَّهُمَّ إِنِّي أَS-ALUKAL جَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", latin: "Allahumma innii as-alukal jannata wa a'uudzu bika min an-naar", arti: "Ya Allah, aku memohon kepada-Mu surga dan aku berlindung kepada-Mu dari neraka." },
       { judul: "Doa di Arafah", arab: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", latin: "Laa ilaaha illallah wahdahu laa syariikalah, lahul mulku wa lahul hamdu yuhyi wa yumiitu wa huwa 'alaa kulli syai-in qadiir", arti: "Tiada Tuhan selain Allah Yang Maha Esa, tiada sekutu bagi-Nya, milik-Nya kerajaan dan milik-Nya pujian, Dia menghidupkan dan mematikan, dan Dia Maha Kuasa atas segala sesuatu." },
       { judul: "Doa di Muzdalifah", arab: "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا", latin: "Allahummaj 'al fii qalbii nuuraa", arti: "Ya Allah, jadikanlah dalam hatiku cahaya." },
       { judul: "Doa di Mina", arab: "اللَّهُمَّ اجْعَلْ حَجَّنَا حَجًّا مَبْرُورًا", latin: "Allahummaj 'al hajjanaa hajjan mabruuraa", arti: "Ya Allah, jadikanlah haji kami sebagai haji yang mabrur." },
       { judul: "Doa Melontar Jumrah", arab: "اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ", latin: "Allahu akbar, allahu akbar, allahu akbar", arti: "Allah Maha Besar, Allah Maha Besar, Allah Maha Besar." },
       { judul: "Doa di Maqam Ibrahim", arab: "وَاتَّخِذُوا مِنْ مَقَامِ إِبْرَاهِيمَ مُصَلًّى", latin: "Wattakhidzuu min maqaami ibraahiima mushollaa", arti: "Dan jadikanlah sebagian maqam Ibrahim sebagai tempat shalat." },
-      { judul: "Doa Minum Air Zamzam", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا وَاسِعًا وَشِفَاءً مِنْ كُلِّ دَاءٍ", latin: "Allahumma innii as-aluka 'ilman naafi'an wa rizqan waasi'an wa syifaa-an min kulli daa-in", arti: "Ya Allah, aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang luas, dan kesembuhan dari segala penyakit." },
-      { judul: "Doa di Raudhah", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ", latin: "Allahumma innii as-alukal 'afwa wal 'aafiyah fid dunyaa wal aakhirah", arti: "Ya Allah, aku memohon kepada-Mu ampunan dan keselamatan di dunia dan akhirat." },
+      { judul: "Doa Minum Air Zamzam", arab: "اللَّهُمَّ إِنِّي أَS-ALUKA عِلْمًا نَافِعًا وَرِزْقًا وَاسِعًا وَشِفَاءً مِنْ كُلِّ دَاءٍ", latin: "Allahumma innii as-aluka 'ilman naafi'an wa rizqan waasi'an wa syifaa-an min kulli daa-in", arti: "Ya Allah, aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang luas, dan kesembuhan dari segala penyakit." },
+      { judul: "Doa di Raudhah", arab: "اللَّهُمَّ إِنِّي أَS-ALUKAL عَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ", latin: "Allahumma innii as-alukal 'afwa wal 'aafiyah fid dunyaa wal aakhirah", arti: "Ya Allah, aku memohon kepada-Mu ampunan dan keselamatan di dunia dan akhirat." },
       { judul: "Doa Ketika Wukuf", arab: "اللَّهُمَّ اجْعَلْنِي مِنَ الْعُتَقَاءِ مِنَ النَّارِ", latin: "Allahummaj 'alnii minal 'utqaa'i minan naar", arti: "Ya Allah, jadikanlah aku termasuk orang-orang yang dibebaskan dari neraka." },
       { judul: "Doa di Jabal Rahmah", arab: "اللَّهُمَّ اجْمَعْنَا بِالْأَنْبِيَاءِ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ وَالصَّالِحِينَ", latin: "Allahummaj ma'naa bil anbiyaa-i wash shiddiiqiina wasy syuhadaa-i wash shaalihiin", arti: "Ya Allah, kumpulkanlah kami bersama para nabi, orang-orang jujur, syuhada, dan orang-orang sholeh." },
       { judul: "Doa Ketika Ihram", arab: "اللَّهُمَّ إِنِّي أُرِيدُ الْعُمْرَةَ فَيَسِّرْهَا لِي وَتَقَبَّلْهَا مِنِّي", latin: "Allahumma innii uriidul 'umrata fayassirhaa lii wa taqabbalhaa minnii", arti: "Ya Allah, aku berniat umrah, maka mudahkanlah ia untukku dan terimalah ia dariku." },
@@ -314,14 +313,13 @@ const databaseKategori: Kategori[] = [
     list: [
       { judul: "Doa Menjenguk Orang Sakit", arab: "لَا بَأْسَ طَهُورٌ إِنْ شَاءَ اللَّهُ", latin: "Laa ba'sa thahuurun insyaa Allah", arti: "Tidak apa-apa, semoga menjadi penghapus dosa, insya Allah." },
       { judul: "Doa Orang Sakit", arab: "أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ", latin: "As-alullaahal 'azhiima rabbal 'arsyil 'azhiimi an yasyfiyaka", arti: "Aku memohon kepada Allah Yang Maha Agung, Tuhan 'Arsy yang agung, agar menyembuhkanmu." },
-      { judul: "Doa Menghadapi Sakaratul Maut", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الْخَاتِمَةِ", latin: "Allahumma innii as-aluka husnal khaatimah", arti: "Ya Allah, aku memohon kepada-Mu husnul khatimah." },
+      { judul: "Doa Menghadapi Sakaratul Maut", arab: "اللَّهُمَّ إِنِّي أَS-ALUKA حُسْنَ الْخَاتِمَةِ", latin: "Allahumma innii as-aluka husnal khaatimah", arti: "Ya Allah, aku memohon kepada-Mu husnul khatimah." },
       { judul: "Doa Untuk Mayit", arab: "اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ", latin: "Allahummaghfir lahu warhamhu wa 'aafihi wa'fu 'anhu", arti: "Ya Allah, ampunilah dia, rahmatilah dia, selamatkanlah dia, dan maafkanlah dia." },
       { judul: "Doa Takziyah", arab: "إِنَّ لِلَّهِ مَا أَخَذَ وَلَهُ مَا أَعْطَى وَكُلُّ شَيْءٍ عِنْدَهُ بِأَجَلٍ مُسَمًّى", latin: "Inna lillaahi maa akhadza wa lahu maa a'thaa wa kullu syai-in 'indahu bi ajalin musammaa", arti: "Sesungguhnya milik Allah apa yang Dia ambil dan milik-Nya apa yang Dia berikan, segala sesuatu di sisi-Nya memiliki batas waktu yang ditentukan." },
       { judul: "Doa Ziarah Kubur", arab: "السَّلَامُ عَلَيْكُمْ دَارَ قَوْمٍ مُؤْمِنِينَ وَإِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لَاحِقُونَ", latin: "Assalaamu 'alaikum daara qaumin mu'miniina wa innaa insyaa-allaahu bikum laahiquun", arti: "Semoga keselamatan tercurah kepada kalian, wahai penghuni kubur dari kaum mukminin. Dan sesungguhnya kami insya Allah akan menyusul kalian." }
     ]
   },
 
-  // ================= KATEGORI WIRID =================
   { id: "w1", nama: "Wirid Harian", tipe: "wirid", jumlah: 6, list: [
     { judul: "1. Istighfar", arab: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ", latin: "Astaghfirullahal 'azhiim", arti: "Aku memohon ampun kepada Allah Yang Maha Agung." },
     { judul: "2. Tasbih", arab: "سُبْحَانَ اللَّهِ", latin: "Subhaanallah", arti: "Maha Suci Allah." },
@@ -339,7 +337,7 @@ const databaseKategori: Kategori[] = [
       { judul: "Shalawat Ibrahimiyah", arab: "اللّٰهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيْمَ", latin: "Allahumma shalli 'alaa Muhammad wa 'alaa aali Muhammad...", arti: "Ya Allah, limpahkanlah rahmat kepada Nabi Muhammad dan keluarganya..." },
       { judul: "Shalawat Thibbil Qulub", arab: "اللّٰهُمَّ صَلِّ عَلٰى سَيِّدِنَا مُحَمَّدٍ طِبِّ الْقُلُوْبِ وَدَوَائِهَا", latin: "Allahumma shalli 'alaa Sayyidinaa Muhammadin thibbil quluubi wa dawaa-ihaa", arti: "Ya Allah, berikanlah rahmat kepada junjungan kami Nabi Muhammad, sebagai pengobat hati dan penyembuhnya." },
       { judul: "Shalawat Jibril", arab: "صَلَّى اللهُ عَلَى مُحَمَّد", latin: "Shallallahu 'alaa Muhammad", arti: "Semoga Allah melimpahkan rahmat kepada Nabi Muhammad." },
-      { judul: "Shalawat Nariyah", arab: "اللَّهُمَّ صَلِّ صَلَاةً كَامِلَةً وَسَلِّمْ سَلَامًا تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ الَّذِي تَنْحَلُّ بِهِ الْعُقَدُ وَتَنْفَرِجُ بِهِ الْكُرَبُ وَتُقْضَى بِهِ الْحَوَائِجُ وَتُنَالُ بِهِ الرَّغَائِبُ وَحُسْنُ الْخَوَاتِمِ وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيمِ وَعَلَى آلِهِ وَصَحْبِهِ فِي كُلِّ لَمْحَةٍ وَنَفَسٍ بِعَدَدِ كُلِّ مَعْلُومٍ لَكَ", latin: "Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman 'alaa sayyidinaa Muhammadin alladzi tanhallu bihil 'uqadu wa tanfariju bihil kurabu wa tuqdhaa bihil hawaaiju wa tunaalu bihir raghaa'ibu wa husnul khawaatimi wa yustasqal ghamaamu bi wajhihil kariimi wa 'alaa aalihi wa shahbihi fii kulli lamhatin wa nafasin bi 'adadi kulli ma'luumin laka.", arti: "Ya Allah, limpahkanlah rahmat yang sempurna dan salam yang lengkap kepada junjungan kami Nabi Muhammad, yang dengan sebabnya terurai segala simpul (kesulitan), terlepas segala kesusahan, terpenuhi segala hajat, tercapai segala keinginan dan husnul khatimah, dan dengan wajahnya yang mulia dimohonkan turunnya hujan, dan semoga (rahmat dan salam) tercurah pula kepada keluarga dan para sahabatnya, pada setiap kedipan mata dan setiap hembusan nafas, sebanyak bilangan segala sesuatu yang Engkau ketahui." },
+      { judul: "Shalawat Nariyah", arab: "اللَّهُمَّ صَلِّ صَلَاةً كَامِلَةً وَسَلِّمْ سَلَامًا تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ الَّذِي تَنْحَلُّ بِهِ الْعُقَدُ وَتَنْفَرِجُ بِهِ الْكُرَبُ وَتُقْضَى بِهِ الْحَوَائِجُ وَتُنَالُ بِهِ الرَّغَائِبُ وَحُسْنُ الْخَواتِمِ وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيمِ وَعَلَى آلِهِ وَصَحْبِهِ فِي كُلِّ لَمْحَةٍ وَنَفَسٍ بِعَدَدِ كُلِّ مَعْلُومٍ لَكَ", latin: "Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman 'alaa sayyidinaa Muhammadin alladzi tanhallu bihil 'uqadu wa tanfariju bihil kurabu wa tuqdhaa bihil hawaaiju wa tunaalu bihir raghaa'ibu wa husnul khawaatimi wa yustasqal ghamaamu bi wajhihil kariimi wa 'alaa aalihi wa shahbihi fii kulli lamhatin wa nafasin bi 'adadi kulli ma'luumin laka.", arti: "Ya Allah, limpahkanlah rahmat yang sempurna dan salam yang lengkap kepada junjungan kami Nabi Muhammad, yang dengan sebabnya terurai segala simpul (kesulitan), terlepas segala kesusahan, terpenuhi segala hajat, tercapai segala keinginan dan husnul khatimah, dan dengan wajahnya yang mulia dimohonkan turunnya hujan, dan semoga (rahmat dan salam) tercurah pula kepada keluarga dan para sahabatnya, pada setiap kedipan mata dan setiap hembusan nafas, sebanyak bilangan segala sesuatu yang Engkau ketahui." },
       { judul: "Shalawat Badar", arab: "صَلَّى اللهُ عَلَى مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ", latin: "Shallallaahu 'alaa Muhammad shallallaahu 'alaihi wa sallam", arti: "Semoga Allah melimpahkan rahmat kepada Nabi Muhammad, semoga Allah melimpahkan rahmat dan salam kepadanya." },
       { judul: "Shalawat Munjiyat", arab: "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ", latin: "Allahumma shalli 'alaa sayyidinaa muhammadin shalaatan tunjiinaa bihaa min jamii'il ahwaal", arti: "Ya Allah, limpahkanlah rahmat kepada junjungan kami Nabi Muhammad, rahmat yang menyelamatkan kami dari segala ketakutan." },
       { judul: "Shalawat Fatih", arab: "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ الْفَاتِحِ لِمَا أُغْلِقَ", latin: "Allahumma shalli 'alaa sayyidinaa muhammadil faatihi limaa ughliq", arti: "Ya Allah, limpahkanlah rahmat kepada junjungan kami Nabi Muhammad, pembuka apa yang terkunci." },
@@ -367,7 +365,7 @@ const databaseKategori: Kategori[] = [
       { judul: "Istighotsah 3", arab: "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ", latin: "Allahumma innaa nasta'iinuka wa nastaghfiruka wa nu'minu bika", arti: "Ya Allah, kami memohon pertolongan dan ampunan-Mu, dan kami beriman kepada-Mu." },
       { judul: "Istighotsah 4", arab: "اللَّهُمَّ اكْفِنَا بِمَا شِئْتَ وَكَيْفَ شِئْتَ", latin: "Allahummakfinaa bimaa syi'ta wa kaifa syi'ta", arti: "Ya Allah, cukupkanlah kami dengan apa yang Engkau kehendaki dan bagaimana Engkau kehendaki." },
       { judul: "Istighotsah 5", arab: "يَا مُفَرِّجَ الْهَمِّ فَرِّجْ هَمِّي", latin: "Yaa mufarrijal hammi farrij hammii", arti: "Wahai Dzat yang melapangkan kesedihan, lapangkanlah kesedihanku." },
-      { judul: "Istighotsah 6", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنَّكَ أَنْتَ اللَّهُ الْأَحَدُ الصَّمَدُ", latin: "Allahumma innii as-aluka bi annaka antallahu ahadush shamad", arti: "Ya Allah, aku memohon kepada-Mu dengan sesungguhnya Engkau adalah Allah Yang Maha Esa, tempat meminta." },
+      { judul: "Istighotsah 6", arab: "اللَّهُمَّ إِنِّي أَS-ALUKA بِأَنَّكَ أَنْتَ اللَّهُ الْأَحَدُ الصَّمَدُ", latin: "Allahumma innii as-aluka bi annaka antallahu ahadush shamad", arti: "Ya Allah, aku memohon kepada-Mu dengan sesungguhnya Engkau adalah Allah Yang Maha Esa, tempat meminta." },
       { judul: "Istighotsah 7", arab: "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ", latin: "Hasbunallahu wa ni'mal wakiil", arti: "Cukuplah Allah menjadi penolong kami dan Allah adalah sebaik-baik pelindung." }
     ]
   },
@@ -396,10 +394,10 @@ const databaseKategori: Kategori[] = [
       { judul: "Hizib Wiqayah", arab: "اللَّهُمَّ احْفَظْنَا بِحِفْظِكَ", latin: "Allahummahfazhnaa bihifzhik", arti: "Ya Allah, jagalah kami dengan penjagaan-Mu." },
       { judul: "Hizib 4", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا خَلَقْتَ", latin: "Allahumma innii a'uudzu bika min syarri maa khalaqt", arti: "Ya Allah, aku berlindung kepada-Mu dari kejahatan makhluk-Mu." },
       { judul: "Hizib 5", arab: "اللَّهُمَّ اكْفِنِي شَرَّ الْإِنْسِ وَالْجَانِّ", latin: "Allahummakfinii syarral insi wal jaan", arti: "Ya Allah, cukupkanlah aku dari kejahatan manusia dan jin." },
-      { judul: "Hizib 6", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى", latin: "Allahumma innii as-alukal hudaa wat tuqaa", arti: "Ya Allah, aku memohon kepada-Mu petunjuk dan ketakwaan." },
+      { judul: "Hizib 6", arab: "اللَّهُمَّ إِنِّي أَS-ALUKAL الْهُدَى وَالتُّقَى", latin: "Allahumma innii as-alukal hudaa wat tuqaa", arti: "Ya Allah, aku memohon kepada-Mu petunjuk dan ketakwaan." },
       { judul: "Hizib 7", arab: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُتَّقِينَ", latin: "Allahummaj 'alnii minal muttaqiin", arti: "Ya Allah, jadikanlah aku termasuk orang-orang yang bertakwa." },
       { judul: "Hizib 8", arab: "اللَّهُمَّ ارْزُقْنِي حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ", latin: "Allahummar zuqnii hubbaka wa hubba man yuhibbuka", arti: "Ya Allah, karuniakanlah aku cinta-Mu dan cinta orang yang mencintai-Mu." },
-      { judul: "Hizib 9", arab: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ", latin: "Allahumma innii as-alukal jannata", arti: "Ya Allah, aku memohon kepada-Mu surga." }
+      { judul: "Hizib 9", arab: "اللَّهُمَّ إِنِّي أَS-ALUKAL جَنَّةَ", latin: "Allahumma innii as-alukal jannata", arti: "Ya Allah, aku memohon kepada-Mu surga." }
     ]
   },
   { 
@@ -449,12 +447,12 @@ const databaseKategori: Kategori[] = [
       { 
         judul: "Wirid Bakda Shalat Fardhu (Lengkap)", 
         arab: `أَسْتَغْفِرُ اللهَ الْعَظِـيْمَ لِيْ وَلِوَالِدَيَّ وَلِأَصْحَابِ الْحُقُوْقِ عَلَيَّ وَلِجَمِيْعِ الْمُؤْمِنِيْنَ وَالْمُؤْمِنَاتِ وَالْمُسْلِمِيْنَ وَالْمُسْلِمَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ ×٣
-لَاإِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِيْ وَيُمِيْتُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ ×٣
+لَاإِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِيْ وَيُمِيْتُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ ×٣
 اَللّٰهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ وَإِلَيْكَ يَعُوْدُ السَّلَامُ فَحَيِّنَا رَبَّنَا بِالسَّلَامِ وَأَدْخِلْنَا الْـجَنَّةَ دَارَ السَّلَامِ تَبَارَكْتَ رَبَّنَا وَتَعَالَيْتَ يَا ذَاالْـجَلَالِ وَاْلإِكْرَامِ
 أَعُوْذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيْمِ. بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ، اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَۙ، الرَّحْمٰنِ الرَّحِيْمِۙ، مٰلِكِ يَوْمِ الدِّيْنِۗ، اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ، اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ، صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ ەۙ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّاۤلِّيْنَ. اٰمِيْن
-وَإِلٰهُكُمْ إِلٰهٌ وَاحِدٌ لَا إِلٰهَ إِلَّا هُوَ الرَّحْمٰنُ الرَّحِيْمُ
+وَإِلٰهُكُمْ إِلٰهٌ وَاحِدٌ لَا إِلٰهَ إِلَّا هُوَ الرَّحْمٰنُ الرَّحِيْمُ
 اَللّٰهُ لَآ اِلٰهَ اِلَّا هُوَۚ اَلْحَيُّ الْقَيُّوْمُ ەۚ لَا تَأْخُذُهٗ سِنَةٌ وَّلَا نَوْمٌۗ لَهٗ مَا فِى السَّمٰوٰتِ وَمَا فِى الْاَرْضِۗ مَنْ ذَا الَّذِيْ يَشْفَعُ عِنْدَهٗٓ اِلَّا بِاِذْنِهٖۗ يَعْلَمُ مَا بَيْنَ اَيْدِيْهِمْ وَمَا خَلْفَهُمْۚ وَلَا يُحِيْطُوْنَ بِشَيْءٍ مِّنْ عِلْمِهٖٓ اِلَّا بِمَا شَاۤءَۚ وَسِعَ كُرْسِيُّهُ السَّمٰوٰتِ وَالْاَرْضَۚ وَلَا يَـُٔوْدُهٗ حِفْظُهُمَاۚ وَهُوَ الْعَلِيُّ الْعَظِيْمُ
-شَهِدَ اللهُ أَنَّهُ لَا إِلٰهَ إِلَّا هُوَ وَالْمَلَائِكَةُ وَأُولُو الْعِلْمِ قَائِمًا بِالْقِسْطِ، لَا إِلٰهَ إِلَّا هُوَ الْعَزِيزُ الْحَكِيمُ، إِنَّ الدِّينَ عِنْدَ اللّٰهِ الْإِسْلَامُ، قُلِ اللّٰهُمَّ مَالِكَ الْمُلْكِ تُؤْتِي الْمُلْكَ مَنْ تَشَاءُ وَتَنْزِعُ الْمُلْكَ مِمَّنْ تَشَاءُ وَتُعِزُّ مَنْ تَشَاءُ وَتُذِلُّ مَنْ تَشَاءُ، بِيَدِكَ الْخَيْرُ، إِنَّكَ عَلىٰ كُلِّ شَيْءٍ قَدِيرٌ. تُوْلِجُ اللَّيْلَ فِي النَّهَارِ وَتُوْلِجُ النَّهَارَ فِي اللَّيْلِ، وَتُخْرِجُ الْحَيَّ مِنَ الْمَيِّتِ وَتُخْرِجُ الْمَيِّتَ مِنَ الْحَيِّ، وَتَرْزُقُ مَنْ تَشَاءُ بِغَيْرِ حِسَابٍ
+شَهِدَ اللهُ أَنَّهُ لَا إِلَهَ إِلَّا هُوَ وَالْمَلَائِكَةُ وَأُولُو الْعِلْمِ قَائِمًا بِالْقِسْطِ، لَا إِلَهَ إِلَّا هُوَ الْعَزِيزُ الْحَكِيمُ، إِنَّ الدِّينَ عِنْدَ اللّٰهِ الْإِسْلَامُ، قُلِ اللّٰهُمَّ مَالِكَ الْمُلْكِ تُؤْتِي الْمُلْكَ مَنْ تَشَاءُ وَتَنْزِعُ الْمُلْكَ مِمَّنْ تَشَاءُ وَتُعِزُّ مَنْ تَشَاءُ وَتُذِلُّ مَنْ تَشَاءُ، بِيَدِكَ الْخَيْرُ، إِنَّكَ عَلىٰ كُلِّ شَيْءٍ قَدِيرٌ. تُوْلِجُ اللَّيْلَ فِي النَّهَارِ وَتُوْلِجُ النَّهَارَ فِي اللَّيْلِ، وَتُخْرِجُ الْحَيَّ مِنَ الْمَيِّتِ وَتُخْرِجُ الْمَيِّتَ مِنَ الْحَيِّ، وَتَرْزُقُ مَنْ تَشَاءُ بِغَيْرِ حِسَابٍ
 سُبْحَانَ اللهِ ×٣٣ اَلْحَمْدُ لِلّٰهِ ×٣٣ اَللهُ أَكْبَرُ ×٣٣
 اَللهُ أَكْبَرُ كَبِيْرًا وَالْحَمْدُ لِلّٰهِ كَثِيْرًا وَسُبْحَانَ اللهِ بُكْرَةً وَأَصِيْلًا، لَاإِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِيْ وَيُمِيْتُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ، لَاحَوْلَ وَلَاقُوَّةَ إِلَّابِاللهِ الْعَلِيِّ الْعَظِيْمِ
 اَللّٰهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا هَادِيَ لِمَا أَضْلَلْتَ، وَلَا مُبَدِّلَ لِمَا حَكَمْتَ، وَلَا رَآدَّ لِمَا قَضَيْتَ، وَلَا يَنْفَعُ ذَاالْجَدِّ مِنْكَ الْجَدُّ، لَاإِلٰهَ إِلَّا أَنْتَ
@@ -462,7 +460,7 @@ const databaseKategori: Kategori[] = [
 وَحَسْبُنَا اللهُ وَنِعْمَ الْوَكِيْلُ، لَاحَوْلَ وَلَاقُوَّةَ إِلَّابِاللهِ الْعَلِيِّ الْعَظِيْمِ
 أَسْتَغْفِرُ اللهَ الْعَظِـيْمَ
 الدُّعَاءُ
-بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ. الْحَمْدُ لِلّٰهِ رَبِّ الْعَالَمِيْنَ حَمْدًا يُّوَافِيْ نِعَمَهُ وَ يُكَافِئُ مَزِيْدَهُ يَا رَبَّنَا لَكَ الْحَمْدُ كَمَا يَنْبَغِيْ لِجَلَالِ وَجْهِكَ وَعَظِيْمِ سُلْطَانِكَ. اَللّٰهُمَّ صَلِّ وَسَلِّمْ عَلَى سَيِّدِنَا مُحَمَّدٍ وَ اٰلِ سَيِّدِنَا مُحَمَّدٍ. اَللّٰهُمَّ صَلِّ وَسَلِّمْ عَلٰى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِيْنَا بِهَا مِنْ جَمِيْعِ الْأَهْوَالِ وَالْاٰفَاتِ وَتَقْضِيْ لَنَا بِهَا جَمِيعَ الْحَاجَاتِ وَتُطَهِّرُنَا بِهَا مِنْ جَمِيْعِ السَيِّئَاتِ وَتَرْفَعُنَا بِهَا عِنْدَكَ أَعْلَى الدَّرَجَاتِ وَتُبَلِّغُنَا بِهَا أَقْصَى الْغَايَاتِ مِنْ جَمِيْعِ الْخَيْرَاتِ فِي الْحَيَاةِ وَبَعْدَ الْمَمَاتِ
+بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ. الْحَمْدُ لِلّٰهِ رَبِّ الْعَالَمِيْنَ حَمْدًا يُّوَAFII نِعَمَهُ وَ يُكَافِئُ مَزِيْدَهُ يَا رَبَّنَا لَكَ الْحَمْدُ كَمَا يَنْبَغِيْ لِجَلَالِ وَجْهِكَ وَعَظِيْمِ سُلْطَانِكَ. اَللّٰهُمَّ صَلِّ وَسَلِّمْ عَلَى سَيِّدِنَا مُحَمَّدٍ وَ اٰلِ سَيِّدِنَا مُحَمَّدٍ. اَللّٰهُمَّ صَلِّ وَسَلِّمْ عَلٰى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِيْنَا بِهَا مِنْ جَمِيْعِ الْأَهْوَALIL وَالْاٰفَاتِ وَتَقْضِيْ لَنَا بِهَا جَمِيعَ الْحَاجَاتِ وَتُطَهِّرُنَا بِهَا مِنْ جَمِيْعِ السَيِّئَاتِ وَتَرْفَعُنَا بِهَا عِنْدَكَ أَعْلَى الدَّرَجَاتِ وَتُبَلِّغُنَا بِهَا أَقْصَى الْغَايَاتِ مِنْ جَمِيْعِ الْخَيْرَاتِ فِي الْحَيَاةِ وَبَعْدَ الْمَمَاتِ
 اَللّٰهُمَّ إِنَّا نَسْأَلُكَ اللُّطْفَ فِيْمَا جَرَتْ بِهِ الْمَقَادِيْرُ. اَللّٰهُمَّ إِنَّا نَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ مِنْهُ سَيِّدُنَا مُحَـمَّدٌ عَبْدُكَ وَرَسُوْلُكَ. وَنَعُوْذُ بِكَ مِنْ شَرِّ مَا اسْتَعَاذَكَ مِنْهُ سَيِّدُنَا وَنَبِيُّنَا مُحَـمَّدٌ عَبْدُكَ وَرَسُوْلُكَ. اَللّٰهُمَّ إِنَّا نَسْأَلُكَ مُوْجِبَاتِ رَحْمَتِكَ وَعَزَائِمَ مَغْفِرَتِكَ وَالسَّلَامَةَ مِنْ كُلِّ إِثْمٍ وَالْغَنِيْمَةَ مِنْ كُلِّ بِرٍّ وَالْفَوْزَ بِالْجَنَّةِ وَالنَّجَاةَ مِنَ النَّارِ وَالْعَفْوَ عِنْدَ الْحِسَابِ. رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ. رَبَّنَا اغْفِرْ لَنَا وَلِوَالِدِيْنَا كَمَا رَبَّوْنَا صِغَارًا، وَلِجَمِيْعِ الْمُؤْمِنِيْنَ وَالْمُؤْمِنَاتِ وَالْمُسْلِمِيْنَ وَالْمُسْلِمَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ. رَبَّنَا اٰتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْاٰخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ. وَصَلَّى اللهُ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى اٰلِهِ وَصَحْبِهِ وَسَلَّمَ وَالْحَمْدُ لِلّٰهِ رَبِّ الْعَالَمِيْنَ`,
         latin: `Astaghfirullâh al-‘adhîm lî wa liwâlidayya wa li ash ḫâbil-huquq ‘alayya walijami‘il-mu’minîna wal-mu’minâti wal-muslimîna wal-muslimâti al-aḫyâ’i minhum wal-amwât(i) 3x
 Lâ ilâha illallâhu waḫdahu lâ syarîka lah(u), lahul-mulku wa lahul-ḫamdu yuḫyî wayumîtu wa huwa ‘ala kulli syai’in qadîr(un) 3x
@@ -481,7 +479,7 @@ Ad-du'â'
 Bismillâhir-rahmânir-rahîm(i). Al-ḫamdulillâhi rabbil-’âlamîn(a), ḫamdan yuwâfî ni‘amahu wa yukâfi’u mazîdahu yâ rabbanâ lakal-ḫamdu kamâ yanbaghî lijalâli wajhika wa ‘adhimi sulthânik(a). Allâhumma shalli wa sallim ‘ala sayyidinâ Muḫammadin wa âli sayyidinâ Muḫammad(in). Allâhumma shalli wa sallim ‘alâ sayyidinâ Muḫammadin shalatan tunjînâ bihâ min jami‘il ahwâli wal âfâti wa taqdlî lanâ bihâ jamî‘al ḫâjât wa tuthahhirunâ min jamî‘is sayyiâti wa tarfa‘unâ biha ‘indaka a‘lad-darajâti wa tubaligunâ biha aqshal-ghayâti min jami‘il-khairâti fil-ḫayâti wa ba‘dal mamâti.
 Allâḫumma innâ nas’alukal-luthfa fîmâ jarat bihil-maqâdîru. Allâhumma innâ nas’aluka min khairi mâ sa’alaka minhu sayyidunâ Muḫammadun ‘abduka wa rasûluka. Wa na‘udzubika min syarri mâs-ta‘âdzaka minhu sayyiduna wa nabiyyunâ Muḫammadun ‘abduka wa rasûluka. Allâhumma innâ nas’aluka mûjibâti raḫmatikâ wa ‘azâ’ima maghfiratika was-salâmata min kulli itsmin wal-ghanîmata min kulli birrin wal-fauza bil-jannati wan-najâta minan-nâri wal-’afwa ‘indal-ḫisâb(i). rabbanâ lâ tuzigh qulûbanâ ba‘da idz hadaitanâ wa hab lanâ min ladunka raḫmatan innaka antal-wahhâb(u). rabbanâgh-fir lanâ wa liwâlidînâ kamâ rabbaunâ shighâra(n). wa lijamî‘il-mu’minîna wal-mu’minâti wal-muslimîna wal-muslimâtil-ahyâ’i minhum wal-amwâti. Rabbanâ âtinâ fid-dunyâ ḫasanatan wa fil-âkhirati ḫasanatanwa qinâ ‘adzaban-nâri. Wa shallallâhu ‘ala sayyidinâ Muḫammadin wa ‘ala âlihi wa shaḫbihi wa sallama wal-ḫamdulillâhi rabbil-’âlamîn(a).`,
         arti: `Aku memohon ampunan kepada Allah yang Mahaagung, untuk diriku sendiri, kedua orang tuaku, sahabat-sahabat yang aku masih memiliki hak atasku, semua kaum mukmin dan muslim, baik yang masih hidup ataupun yang telah wafat. (3x)
-Tiada Tuhan yang haq disembah kecuali Allah semata, tiada sekutu baginya. Hanya milik-Nya segala kerajaan dan hanya milik-Nya segala puji, Dzat yang menghidupkan dan yang mematikan. Dialah Dzat yang kuasa atas segala sesuatu. (3x)
+Tiada Tuhan yang haq disembah kecuali Allah semata, tiada sekutu bagi-Nya. Hanya milik-Nya segala kerajaan dan hanya milik-Nya segala puji, Dzat yang menghidupkan dan yang mematikan. Dialah Dzat yang kuasa atas segala sesuatu. (3x)
 Ya Allah Engkaulah Dzat yang memberi keselamatan (kesejahteraan), dari-Mu keselamatan (kesejahteraan) datang, dan kepadamu segala keselamatan (kesejahteraan) itu kembali. Maka hidupkanlah kami ya Allah dengan selamat (sejahtera), masukkan kami ke dalam surga rumah keselamatan (kesejahteraan), Engkaulah Dzat yang Mahasuci, wahai Tuhan kami, dan Engkaulah Dzat yang Mahaluhur, wahai Tuhan yang memiliki keagungan dan kemuliaan.
 Aku berlindung kepada Allah dari setan yang terlontar. Dengan menyebut nama Allah yang maha pengasih lagi maha penyayang. Segala puji bagi Allah, Tuhan semesta alam. Yang maha pengasih lagi maha penyayang. Yang menguasai hari pembalasan. Hanya kepada-Mu kami menyembah. Hanya kepada-Mu pula kami memohon pertolongan. Tunjukkanlah kami ke jalan yang lurus, yaitu jalan orang-orang yang telah Kauanugerahi nikmat kepada mereka, bukan jalan mereka yang dimurkai dan bukan pula jalan mereka yang sesat. Amin.
 Tuhanmu adalah Tuhan Yang Mahatunggal. Tiada tuhan selain Dia yang Maha Pengasih lagi Maha Penyayang.
@@ -504,33 +502,24 @@ Ya Allah, kami memohon kepada-Mu kelembutan setiap kali berlaku takdir-Mu. Ya Al
 export default function DoaPage() {
   const [activeTab, setActiveTab] = useState<"doa" | "wirid" | "favorit">("doa");
   const [kataKunci, setKataKunci] = useState("");
-  
-  // State Navigasi
   const [kategoriAktif, setKategoriAktif] = useState<Kategori | null>(null);
   const [doaAktif, setDoaAktif] = useState<DoaItem | null>(null);
-
-  // === FITUR BOOKMARK / FAVORIT (LOCAL STORAGE) ===
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [isMounted, setIsMounted] = useState(false); // Untuk menghindari error React Hydration
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     const simpananLokal = localStorage.getItem("doaFavoritApp");
     if (simpananLokal) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFavorites(JSON.parse(simpananLokal));
     }
     setIsMounted(true);
   }, []);
+
   const toggleFavorite = (judul: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    
-    let favBaru = [];
-    if (favorites.includes(judul)) {
-      favBaru = favorites.filter((fav) => fav !== judul);
-    } else {
-      favBaru = [...favorites, judul];
-    }
-    
+    let favBaru = favorites.includes(judul) 
+      ? favorites.filter((fav) => fav !== judul) 
+      : [...favorites, judul];
     setFavorites(favBaru);
     localStorage.setItem("doaFavoritApp", JSON.stringify(favBaru));
   };
@@ -538,7 +527,6 @@ export default function DoaPage() {
   const semuaDoaGabungan = databaseKategori.flatMap(kat => kat.list);
   const daftarFavorit = semuaDoaGabungan.filter(doa => favorites.includes(doa.judul));
 
-  // --- LOGIKA PENCARIAN ---
   const kategoriTampil = databaseKategori.filter(
     (kat) => kat.tipe === activeTab && kat.nama.toLowerCase().includes(kataKunci.toLowerCase())
   );
@@ -551,179 +539,167 @@ export default function DoaPage() {
 
   if (!isMounted) return null;
 
-  // ==========================================
   // LAYAR 3: BACA DOA FULLSCREEN
-  // ==========================================
   if (doaAktif) {
     const isFav = favorites.includes(doaAktif.judul);
-
     return (
-      <div className="min-h-screen bg-white pb-24">
-        <div className="bg-emerald-600 text-white p-4 flex items-center justify-between shadow-sm">
-          <div className="flex items-center gap-4 flex-1">
-            <div onClick={() => setDoaAktif(null)} className="p-2 bg-emerald-700 rounded-lg cursor-pointer active:scale-95 transition-transform">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pb-24 transition-colors duration-300">
+        <div className="sticky top-0 z-50 bg-emerald-600 text-white p-4 flex items-center justify-between shadow-md transition-colors">
+          <div className="flex items-center gap-4 flex-1 overflow-hidden">
+            <button onClick={() => setDoaAktif(null)} className="p-2 bg-white/10 rounded-xl active:scale-95 transition-transform shrink-0">
               <ArrowLeft className="w-5 h-5" />
-            </div>
-            <h1 className="font-bold text-lg truncate flex-1 pr-2">{doaAktif.judul}</h1>
+            </button>
+            <h1 className="font-bold text-lg truncate pr-2">{doaAktif.judul}</h1>
           </div>
-          <button 
-            onClick={(e) => toggleFavorite(doaAktif.judul, e)}
-            className="p-2 bg-white/20 hover:bg-white/30 rounded-full transition-all active:scale-90 flex-shrink-0"
-          >
+          <button onClick={(e) => toggleFavorite(doaAktif.judul, e)} className="p-2.5 bg-white/10 rounded-full shrink-0">
             <Heart className={`w-5 h-5 transition-colors ${isFav ? "fill-red-500 text-red-500" : "text-white"}`} />
           </button>
         </div>
 
-        <div className="p-5 pt-8">
-          <div className="bg-emerald-50 rounded-3xl p-6 border border-emerald-100 mb-6 shadow-sm relative">
-            <Quote className="absolute top-4 left-4 w-8 h-8 text-emerald-200 opacity-50" />
-            <p className="text-right text-3xl font-bold leading-[1.8] text-slate-800 mt-6" dir="rtl">
+        <div className="p-5 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4">
+          <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 mb-6 shadow-sm relative transition-colors">
+            <Quote className="absolute top-6 left-6 w-10 h-10 text-emerald-100 dark:text-emerald-900/50" />
+            <p className="text-right text-3xl font-bold leading-[2.2] text-slate-800 dark:text-slate-100 mt-4 whitespace-pre-wrap break-words" dir="rtl">
               {doaAktif.arab}
             </p>
           </div>
-          <div className="mb-6">
-            <h3 className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Cara Membaca:</h3>
-            <p className="text-slate-700 text-base font-medium leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
-              {doaAktif.latin}
-            </p>
-          </div>
-          <div>
-            <h3 className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Artinya:</h3>
-            <p className="text-slate-600 text-base leading-relaxed italic border-l-4 border-emerald-500 pl-4 py-1">
-              &quot;{doaAktif.arti}&quot;
-            </p>
+          <div className="space-y-6">
+            <div className="bg-emerald-50/50 dark:bg-emerald-900/20 p-5 rounded-2xl border border-emerald-100 dark:border-emerald-800/50">
+              <h3 className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.2em] mb-3">Bacaan Latin</h3>
+              <p className="text-slate-700 dark:text-slate-300 text-lg font-medium leading-relaxed italic">{doaAktif.latin}</p>
+            </div>
+            <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Terjemahan</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">&quot;{doaAktif.arti}&quot;</p>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  // ==========================================
-  // LAYAR 2: DAFTAR JUDUL DOA DI DALAM FOLDER
-  // ==========================================
+  // LAYAR 2: DAFTAR JUDUL DOA
   if (kategoriAktif) {
     return (
-      <div className="min-h-screen bg-white pb-24">
-        <div className="bg-emerald-600 text-white p-4 flex items-center gap-4">
-          <div onClick={() => { setKategoriAktif(null); setKataKunci(""); }} className="p-2 bg-emerald-700 rounded-lg cursor-pointer active:scale-95 transition-transform">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pb-24 transition-colors duration-300">
+        <div className="sticky top-0 z-50 bg-emerald-600 text-white p-4 flex items-center gap-4 shadow-md transition-colors">
+          <button onClick={() => { setKategoriAktif(null); setKataKunci(""); }} className="p-2 bg-white/10 rounded-xl active:scale-95 transition-all shrink-0">
             <ArrowLeft className="w-5 h-5" />
-          </div>
-          <div>
-            <h1 className="font-bold text-lg leading-tight">{kategoriAktif.nama}</h1>
-            <p className="text-xs text-emerald-200">{kategoriAktif.jumlah} Bacaan</p>
-          </div>
-        </div>
-
-        <div className="p-4 bg-slate-50 border-b border-slate-200">
-          <div className="flex bg-white rounded-lg border border-slate-300 p-2 items-center shadow-sm">
-            <Search className="w-5 h-5 text-slate-400 mx-2" />
-            <input type="text" className="w-full outline-none bg-transparent text-sm" placeholder="Cari doa di kategori ini..." value={kataKunci} onChange={(e) => setKataKunci(e.target.value)} />
+          </button>
+          <div className="overflow-hidden">
+            <h1 className="font-bold text-lg leading-tight truncate">{kategoriAktif.nama}</h1>
+            <p className="text-[10px] text-emerald-100 uppercase tracking-widest font-bold">{kategoriAktif.jumlah} Bacaan</p>
           </div>
         </div>
 
-        <div className="flex flex-col">
-          {listDoaUntukTampil.map((doa, index) => {
-            const isFav = favorites.includes(doa.judul);
+        <div className="p-5">
+          <div className="flex bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-3 items-center shadow-sm mb-6 transition-colors">
+            <Search className="w-5 h-5 text-slate-400 mx-2 shrink-0" />
+            <input type="text" className="w-full bg-transparent text-sm outline-none dark:text-white" placeholder="Cari doa..." value={kataKunci} onChange={(e) => setKataKunci(e.target.value)} />
+          </div>
 
-            return (
-              <div key={index} onClick={() => setDoaAktif(doa)} className="p-4 border-b border-slate-100 flex justify-between items-center cursor-pointer bg-white hover:bg-slate-50 active:bg-slate-100 transition-colors group">
-                <span className="font-bold text-slate-700 pr-4">{doa.judul}</span>
-                <div className="flex items-center gap-3">
-                  <button onClick={(e) => toggleFavorite(doa.judul, e)} className="p-2 -mr-2">
-                    <Heart className={`w-5 h-5 transition-colors ${isFav ? "fill-red-500 text-red-500" : "text-slate-300 group-hover:text-red-300"}`} />
-                  </button>
-                  <ChevronRight className="w-5 h-5 text-slate-300" />
+          <div className="grid gap-3">
+            {listDoaUntukTampil.map((doa, index) => {
+              const isFav = favorites.includes(doa.judul);
+              return (
+                <div key={index} onClick={() => setDoaAktif(doa)} className="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 flex justify-between items-center cursor-pointer hover:border-emerald-300 dark:hover:border-emerald-600 active:scale-[0.98] transition-all shadow-sm group">
+                  <span className="font-bold text-slate-700 dark:text-slate-200 pr-4 leading-tight group-hover:text-emerald-600 transition-colors flex-1">{doa.judul}</span>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button onClick={(e) => toggleFavorite(doa.judul, e)} className="p-2">
+                      <Heart className={`w-5 h-5 transition-colors ${isFav ? "fill-red-500 text-red-500" : "text-slate-300 dark:text-slate-600"}`} />
+                    </button>
+                    <ChevronRight className="w-5 h-5 text-slate-300" />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-          {listDoaUntukTampil.length === 0 && <p className="text-center text-slate-400 mt-10 text-sm">Tidak ada doa ditemukan.</p>}
+              );
+            })}
+          </div>
         </div>
       </div>
     );
   }
 
-  // ==========================================
   // LAYAR 1: BERANDA MENU KATEGORI
-  // ==========================================
   return (
-    <div className="min-h-screen bg-slate-50 pb-24">
-      <div className="bg-emerald-600 p-6 pt-10 rounded-b-[40px] text-center shadow-sm">
-        <h1 className="text-2xl font-bold text-white mb-2">Ensiklopedia</h1>
-        <p className="text-emerald-100 text-sm">Kumpulan doa dan amalan harian</p>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pb-24 transition-colors duration-300 overflow-x-hidden">
+      <div className="bg-emerald-600 dark:bg-emerald-800 p-8 pt-12 rounded-b-[45px] text-center shadow-lg relative overflow-hidden transition-colors duration-300">
+        <div className="relative z-10">
+          <h1 className="text-2xl font-black text-white mb-1 uppercase tracking-tighter">Ensiklopedia Doa</h1>
+          <p className="text-emerald-100 text-sm opacity-80">Kumpulan Doa & Amalan Pilihan</p>
+        </div>
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full -ml-12 -mb-12 blur-xl"></div>
       </div>
 
-      <div className="px-5 mt-6">
-        {/* 3 TAB: DOA, WIRID, FAVORIT */}
-        <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-slate-200 mb-6">
-          <div onClick={() => { setActiveTab("doa"); setKataKunci(""); }} className={`flex-1 py-2.5 text-xs sm:text-sm font-bold text-center rounded-xl cursor-pointer transition-colors flex flex-col items-center gap-1 ${activeTab === "doa" ? "bg-emerald-50 text-emerald-700" : "text-slate-400 hover:text-slate-600"}`}>
-            <BookMarked className="w-4 h-4" />
-            Doa
-          </div>
-          <div onClick={() => { setActiveTab("wirid"); setKataKunci(""); }} className={`flex-1 py-2.5 text-xs sm:text-sm font-bold text-center rounded-xl cursor-pointer transition-colors flex flex-col items-center gap-1 ${activeTab === "wirid" ? "bg-emerald-50 text-emerald-700" : "text-slate-400 hover:text-slate-600"}`}>
-            <Sparkles className="w-4 h-4" />
-            Wirid
-          </div>
-          <div onClick={() => { setActiveTab("favorit"); setKataKunci(""); }} className={`flex-1 py-2.5 text-xs sm:text-sm font-bold text-center rounded-xl cursor-pointer transition-colors flex flex-col items-center gap-1 ${activeTab === "favorit" ? "bg-red-50 text-red-600" : "text-slate-400 hover:text-slate-600"}`}>
-            <Heart className={`w-4 h-4 ${activeTab === "favorit" ? "fill-red-600" : ""}`} />
-            Favorit
-          </div>
+      <div className="px-5 -mt-8 relative z-20">
+        {/* TABS UTAMA DENGAN Z-INDEX AMAN */}
+        <div className="flex bg-white dark:bg-slate-800 p-1.5 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 mb-6 transition-colors duration-300">
+          {[
+            { id: "doa", label: "Doa", icon: BookMarked },
+            { id: "wirid", label: "Wirid", icon: Sparkles },
+            { id: "favorit", label: "Favorit", icon: Heart },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => { setActiveTab(tab.id as any); setKataKunci(""); }}
+              className={`flex-1 py-3 rounded-xl transition-all duration-300 flex flex-col items-center gap-1.5 ${
+                activeTab === tab.id 
+                ? "bg-emerald-600 text-white shadow-lg scale-105 z-30" 
+                : "text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700 z-10"
+              }`}
+            >
+              <tab.icon className={`w-4 h-4 ${activeTab === "favorit" && tab.id === "favorit" ? "fill-white" : ""}`} />
+              <span className="text-[10px] font-black uppercase tracking-widest leading-none">{tab.label}</span>
+            </button>
+          ))}
         </div>
 
-        <div className="flex bg-white rounded-xl border border-slate-200 p-3 items-center mb-6 shadow-sm">
-          <Search className="w-5 h-5 text-slate-400 mx-2" />
-          <input type="text" className="w-full outline-none bg-transparent text-sm" placeholder={activeTab === "favorit" ? "Cari doa tersimpan..." : `Cari kategori ${activeTab}...`} value={kataKunci} onChange={(e) => setKataKunci(e.target.value)} />
+        <div className="flex bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-3 items-center mb-6 shadow-sm transition-colors duration-300">
+          <Search className="w-5 h-5 text-slate-400 mx-2 shrink-0" />
+          <input type="text" className="w-full bg-transparent text-sm outline-none dark:text-white placeholder-slate-400" placeholder={`Cari ${activeTab}...`} value={kataKunci} onChange={(e) => setKataKunci(e.target.value)} />
         </div>
 
-        {/* --- KONTEN TAB: JIKA FAVORIT --- */}
-        {activeTab === "favorit" ? (
-          <div className="flex flex-col gap-3">
-            {listDoaUntukTampil.length > 0 ? (
+        <div className="grid gap-3 animate-in fade-in duration-500 mb-10">
+          {activeTab === "favorit" ? (
+            listDoaUntukTampil.length > 0 ? (
               listDoaUntukTampil.map((doa, index) => (
-                <div key={index} onClick={() => setDoaAktif(doa)} className="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between cursor-pointer hover:border-red-300 active:scale-[0.98] transition-all shadow-sm">
-                  <div className="flex items-center gap-4 flex-1">
-                    <div className="p-3 bg-red-50 text-red-500 rounded-lg flex-shrink-0">
-                       <Heart className="w-5 h-5 fill-red-500" />
-                    </div>
-                    <span className="font-bold text-slate-700 pr-2 leading-snug">{doa.judul}</span>
-                  </div>
-                  <button onClick={(e) => toggleFavorite(doa.judul, e)} className="p-2 bg-slate-50 rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors">
-                    <Heart className="w-4 h-4 fill-slate-300" />
-                  </button>
+                <div key={index} onClick={() => setDoaAktif(doa)} className="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-between shadow-sm active:scale-95 transition-all">
+                   <div className="flex items-center gap-4 flex-1">
+                     <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl text-red-500 shrink-0">
+                        <Heart className="w-5 h-5 fill-current" />
+                     </div>
+                     <span className="font-bold text-slate-700 dark:text-slate-200 truncate">{doa.judul}</span>
+                   </div>
+                   <button onClick={(e) => toggleFavorite(doa.judul, e)} className="p-2 text-slate-300 hover:text-red-500 transition-colors shrink-0">
+                      <Heart className="w-4 h-4" />
+                   </button>
                 </div>
               ))
             ) : (
-              <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-2xl bg-white mt-2">
-                <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                   <Heart className="w-8 h-8 text-slate-300" />
-                </div>
-                <p className="text-slate-600 font-bold mb-1">Belum Ada Favorit</p>
-                <p className="text-sm text-slate-400">Tekan ikon Hati pada doa yang ingin Anda simpan ke halaman ini.</p>
+              <div className="text-center py-20 bg-white dark:bg-slate-800 rounded-3xl border-2 border-dashed border-slate-100 dark:border-slate-700 transition-colors duration-300">
+                <Heart className="w-12 h-12 mx-auto text-slate-200 dark:text-slate-700 mb-3" />
+                <p className="text-slate-400 text-sm font-medium">Belum ada doa favorit.</p>
               </div>
-            )}
-          </div>
-        ) : (
-          /* --- KONTEN TAB: DOA / WIRID --- */
-          <div className="flex flex-col gap-3">
-            {kategoriTampil.map((kat) => (
-              <div key={kat.id} onClick={() => { setKategoriAktif(kat); setKataKunci(""); }} className="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-all hover:border-emerald-300 shadow-sm group">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-emerald-50 rounded-lg text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+            )
+          ) : (
+            kategoriTampil.map((kat) => (
+              <div key={kat.id} onClick={() => { setKategoriAktif(kat); setKataKunci(""); }} className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-between shadow-sm active:scale-[0.98] transition-all hover:border-emerald-300 dark:hover:border-emerald-600 group">
+                <div className="flex items-center gap-4 overflow-hidden">
+                  <div className="p-3.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white transition-all shrink-0">
                     <Folder className="w-6 h-6" />
                   </div>
-                  <div>
-                    <h2 className="font-bold text-slate-800">{kat.nama}</h2>
-                    <p className="text-xs text-slate-500 font-medium mt-0.5"><span className="text-emerald-600">{kat.jumlah}</span> Bacaan</p>
+                  <div className="overflow-hidden">
+                    <h2 className="font-bold text-slate-800 dark:text-slate-100 truncate">{kat.nama}</h2>
+                    <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mt-1">
+                      <span className="text-emerald-600 dark:text-emerald-400">{kat.jumlah}</span> Bacaan
+                    </p>
                   </div>
                 </div>
-                <div className="bg-slate-50 p-2 rounded-full group-hover:bg-emerald-50 transition-colors">
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-emerald-600" />
-                </div>
+                <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-emerald-500 transition-colors shrink-0" />
               </div>
-            ))}
-            {kategoriTampil.length === 0 && <p className="text-center text-slate-400 mt-10 text-sm">Kategori tidak ditemukan.</p>}
-          </div>
-        )}
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
