@@ -42,9 +42,11 @@ function PapanKuis() {
   const [isListening, setIsListening] = useState(false);
   const [hasilSuara, setHasilSuara] = useState("");
   const [pesanVoice, setPesanVoice] = useState("");
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
 
-  // --- HANDLE JAWAB (DIPINDAH KE ATAS AGAR BISA DIAKSES) ---
+  // --- HANDLE JAWAB (DIBUNGKUS USECALLBACK) ---
   const handleJawab = useCallback((nomorAyatTerpilih: number) => {
     if (jawabanTerpilih !== null) return; 
     setJawabanTerpilih(nomorAyatTerpilih);
@@ -53,7 +55,7 @@ function PapanKuis() {
     }
   }, [jawabanTerpilih, daftarSoal, indeksSoal]);
 
-  // --- VALIDASI SUARA (DIPINDAH KE ATAS) ---
+  // --- VALIDASI SUARA ---
   const validasiSuara = useCallback((input: string) => {
     if (!daftarSoal[indeksSoal]) return;
     const target = bersihkanArab(daftarSoal[indeksSoal].jawabanBenar.teksArab);
@@ -98,6 +100,7 @@ function PapanKuis() {
         setIsLoading(false);
       });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (SpeechRecognition) {
       recognitionRef.current = new SpeechRecognition();
@@ -105,6 +108,7 @@ function PapanKuis() {
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = false;
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       recognitionRef.current.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         setHasilSuara(transcript);
@@ -156,7 +160,7 @@ function PapanKuis() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-900">
         <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
         <p className="mt-4 text-emerald-600 font-medium uppercase text-sm">Menyiapkan Soal...</p>
       </div>
@@ -198,8 +202,8 @@ function PapanKuis() {
   const soalSekarang = daftarSoal[indeksSoal];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col pb-24 dark:bg-slate-900">
-      <div className="bg-emerald-600 p-5 rounded-b-3xl shadow-sm text-white flex justify-between items-center mb-6">
+    <div className="min-h-screen bg-slate-50 flex flex-col pb-24 dark:bg-slate-900 transition-colors">
+      <div className="bg-emerald-600 p-5 rounded-b-3xl shadow-sm text-white flex justify-between items-center mb-6 transition-colors">
         <div>
           <p className="text-xs text-emerald-200 font-bold uppercase tracking-wider mb-1">Pertanyaan</p>
           <div className="font-black text-xl bg-white/20 px-4 py-1 rounded-lg inline-block">
@@ -215,7 +219,7 @@ function PapanKuis() {
       </div>
 
       <div className="px-5 flex-1 flex flex-col">
-        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 mb-6 text-center">
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 mb-6 text-center transition-colors">
           <div className="flex justify-center mb-4">
              <div className="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-full text-emerald-600 dark:text-emerald-400">
                <HelpCircle className="w-8 h-8" />
@@ -224,16 +228,16 @@ function PapanKuis() {
           <p className="text-sm text-slate-600 dark:text-slate-400 font-bold mb-4 uppercase tracking-tighter">Apa kelanjutan ayat di bawah ini?</p>
           <div className="mb-6">
             <p className="text-3xl font-bold leading-[1.8] text-slate-800 dark:text-white" dir="rtl">
-              {soalSekarang.ayatSoal.teksArab}
+              {soalSekarang?.ayatSoal?.teksArab}
             </p>
           </div>
           <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-2 border border-slate-100 dark:border-slate-700">
-            <audio controls autoPlay className="w-full h-10" src={soalSekarang.ayatSoal.audio["05"]} />
+            <audio controls autoPlay className="w-full h-10" src={soalSekarang?.ayatSoal?.audio["05"]} />
           </div>
         </div>
 
         <div className="flex flex-col gap-3">
-          {soalSekarang.pilihan.map((pilihan) => {
+          {soalSekarang?.pilihan.map((pilihan) => {
             const isTerpilih = jawabanTerpilih === pilihan.nomorAyat;
             const isBenar = pilihan.nomorAyat === soalSekarang.jawabanBenar.nomorAyat;
             let warnaTombol = "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200";
