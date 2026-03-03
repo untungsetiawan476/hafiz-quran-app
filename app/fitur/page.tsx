@@ -8,7 +8,6 @@ export default function FiturTambahanPage() {
   const [heading, setHeading] = useState(0); 
   const [isDark, setIsDark] = useState(false);
   
-  // --- STATE UNTUK SENSOR KOMPAS ---
   const [izinSensor, setIzinSensor] = useState(false);
   const [sensorDukungan, setSensorDukungan] = useState(true);
 
@@ -20,11 +19,9 @@ export default function FiturTambahanPage() {
     }, 0);
   }, []);
 
-  // --- FUNGSI MENGAKTIFKAN KOMPAS (WAJIB UNTUK HP MODERN) ---
   const aktifkanKompas = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (typeof window !== "undefined" && typeof (window as any).DeviceOrientationEvent !== "undefined") {
-      // Khusus pengguna iOS / iPhone
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,7 +36,6 @@ export default function FiturTambahanPage() {
           })
           .catch(console.error);
       } else {
-        // Pengguna Android
         setIzinSensor(true);
         jalankanSensor();
       }
@@ -53,31 +49,26 @@ export default function FiturTambahanPage() {
     const handleOrientation = (e: any) => {
       let compassHeading = 0;
       
-      // Deteksi untuk iOS (Lebih akurat)
       if (e.webkitCompassHeading) {
         compassHeading = e.webkitCompassHeading;
-      } 
-      // Deteksi untuk Android (Gunakan posisi Absolut, bukan Relatif)
-      else if (e.absolute && e.alpha !== null) {
+      } else if (e.absolute && e.alpha !== null) {
         compassHeading = 360 - e.alpha;
-      } 
-      // Fallback
-      else if (e.alpha !== null) {
+      } else if (e.alpha !== null) {
         compassHeading = 360 - e.alpha;
       }
 
       setHeading(Math.floor(compassHeading));
     };
 
-    // Gunakan 'deviceorientationabsolute' untuk Android Chrome jika tersedia
+    // PERBAIKAN TYPESCRIPT: Menggunakan (window as any) agar TypeScript tidak panik
     if ('ondeviceorientationabsolute' in window) {
-      window.addEventListener("deviceorientationabsolute", handleOrientation, true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).addEventListener("deviceorientationabsolute", handleOrientation, true);
     } else {
       window.addEventListener("deviceorientation", handleOrientation, true);
     }
   };
 
-  // --- FUNGSI SAKELAR TEMA ---
   const toggleTheme = () => {
     if (isDark) {
       document.documentElement.classList.remove('dark');
@@ -97,9 +88,7 @@ export default function FiturTambahanPage() {
     setCount(count + 1);
   };
 
-  // Arah Kiblat Indonesia kira-kira 295 derajat
   const arahKiblat = 295;
-  // Hitung putaran jarum kiblat berdasarkan arah HP saat ini
   const putaranJarum = arahKiblat - heading;
 
   return (
@@ -108,15 +97,12 @@ export default function FiturTambahanPage() {
       <div className="bg-emerald-600 dark:bg-emerald-800 p-6 pt-10 rounded-b-[40px] mb-6 text-center shadow-md transition-colors duration-300 relative overflow-hidden">
         <h1 className="text-2xl font-bold text-white mb-2 relative z-10">Alat Ibadah</h1>
         <p className="text-emerald-100 text-sm relative z-10">Pengaturan, Tasbih & Kiblat</p>
-        
-        {/* Ornamen Header */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 blur-xl"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-black opacity-10 rounded-full -ml-10 -mb-10 blur-lg"></div>
       </div>
 
       <div className="px-5 flex flex-col gap-5">
         
-        {/* --- PENGATURAN TEMA --- */}
         <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 flex justify-between items-center shadow-sm transition-colors duration-300">
           <div className="flex items-center gap-3">
             <div className={`p-2 rounded-xl transition-colors ${isDark ? 'bg-indigo-500/20 text-indigo-400' : 'bg-amber-100 text-amber-500'}`}>
@@ -132,7 +118,6 @@ export default function FiturTambahanPage() {
           </button>
         </div>
 
-        {/* --- KOMPAS KIBLAT VISUAL --- */}
         <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm transition-colors duration-300 flex flex-col items-center">
           <div className="flex items-center justify-center gap-2 mb-6 w-full border-b border-slate-100 dark:border-slate-700 pb-4">
             <Compass className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
@@ -156,17 +141,14 @@ export default function FiturTambahanPage() {
             </div>
           ) : (
             <div className="flex flex-col items-center relative">
-              {/* LINGKARAN KOMPAS VISUAL */}
               <div className="w-48 h-48 rounded-full border-4 border-slate-100 dark:border-slate-700 shadow-inner flex items-center justify-center relative mb-6 bg-slate-50 dark:bg-slate-900 transition-transform duration-100 ease-linear"
-                   style={{ transform: `rotate(${-heading}deg)` }}> {/* Latar berputar kebalikan arah HP */}
+                   style={{ transform: `rotate(${-heading}deg)` }}> 
                 
-                {/* Huruf Mata Angin */}
                 <span className="absolute top-2 font-black text-red-500 text-sm">U</span>
                 <span className="absolute bottom-2 font-bold text-slate-400 text-xs">S</span>
                 <span className="absolute right-2 font-bold text-slate-400 text-xs">T</span>
                 <span className="absolute left-2 font-bold text-slate-400 text-xs">B</span>
 
-                {/* Indikator Titik Kiblat (Statis pada 295 Derajat dari Utara) */}
                 <div 
                   className="absolute w-full h-full flex justify-center"
                   style={{ transform: `rotate(${arahKiblat}deg)` }}
@@ -175,7 +157,6 @@ export default function FiturTambahanPage() {
                 </div>
               </div>
 
-              {/* JARUM KIBLAT (Arah Kabah) - Mengambang di atas kompas */}
               <div 
                 className="absolute top-0 w-48 h-48 flex items-center justify-center pointer-events-none transition-transform duration-100 ease-linear"
                 style={{ transform: `rotate(${putaranJarum}deg)` }}
@@ -186,8 +167,8 @@ export default function FiturTambahanPage() {
                 </div>
               </div>
 
-              {/* Angka Derajat */}
-              <div className="bg-slate-100 dark:bg-slate-700 p-3 rounded-2xl min-w-[120px]">
+              {/* PERBAIKAN TAILWIND: min-w-[120px] diubah jadi min-w-30 */}
+              <div className="bg-slate-100 dark:bg-slate-700 p-3 rounded-2xl min-w-30">
                 <div className="text-3xl font-black text-emerald-700 dark:text-emerald-400 tabular-nums">{heading}°</div>
                 <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-widest">Arah HP Anda</div>
               </div>
@@ -195,7 +176,6 @@ export default function FiturTambahanPage() {
           )}
         </div>
 
-        {/* --- TASBIH DATAR --- */}
         <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm transition-colors duration-300">
           <div className="flex justify-between items-center mb-6 border-b border-slate-100 dark:border-slate-700 pb-4">
              <h2 className="font-bold text-slate-700 dark:text-slate-100 text-lg">Tasbih Digital</h2>
