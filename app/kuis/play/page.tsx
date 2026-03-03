@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, useRef, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { CheckCircle2, XCircle, Trophy, ArrowRight, RotateCcw, Home, HelpCircle, Mic, MicOff, RefreshCw, ListFilter } from "lucide-react";
+import { CheckCircle2, XCircle, Trophy, ArrowRight, RotateCcw, Home, HelpCircle, Mic, MicOff, RefreshCw, ListFilter } from "lucide-center";
 
 interface Ayat {
   nomorAyat: number;
@@ -26,6 +26,7 @@ function PapanKuis() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
+  // Ambil parameter dari URL
   const idSurah = searchParams.get("surah") || "1";
   const ayatMulai = parseInt(searchParams.get("mulai") || "1");
   const ayatAkhir = parseInt(searchParams.get("akhir") || "7");
@@ -39,7 +40,6 @@ function PapanKuis() {
   const [kuisSelesai, setKuisSelesai] = useState(false);
   const [isRekorBaru, setIsRekorBaru] = useState(false);
 
-  // --- STATE MODE KUIS (PILIHAN / SUARA) ---
   const [isModeSuara, setIsModeSuara] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [hasilSuara, setHasilSuara] = useState("");
@@ -48,16 +48,20 @@ function PapanKuis() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
 
-  // --- HANDLE JAWAB ---
+  // --- FUNGSI HANDLE JAWAB ---
   const handleJawab = useCallback((nomorAyatTerpilih: number) => {
-    if (jawabanTerpilih !== null) return; 
-    setJawabanTerpilih(nomorAyatTerpilih);
-    if (nomorAyatTerpilih === daftarSoal[indeksSoal]?.jawabanBenar?.nomorAyat) {
-      setSkor((prev) => prev + 10);
-    }
-  }, [jawabanTerpilih, daftarSoal, indeksSoal]);
+    setJawabanTerpilih((current) => {
+      if (current !== null) return current; // Cegah jawab dua kali
+      
+      // Update skor secara fungsional agar tidak trigger re-render loop
+      if (nomorAyatTerpilih === daftarSoal[indeksSoal]?.jawabanBenar?.nomorAyat) {
+        setSkor((prev) => prev + 10);
+      }
+      return nomorAyatTerpilih;
+    });
+  }, [daftarSoal, indeksSoal]);
 
-  // --- VALIDASI SUARA ---
+  // --- FUNGSI VALIDASI SUARA ---
   const validasiSuara = useCallback((input: string) => {
     if (!daftarSoal[indeksSoal]) return;
     const target = bersihkanArab(daftarSoal[indeksSoal].jawabanBenar.teksArab);
@@ -71,28 +75,44 @@ function PapanKuis() {
     }
   }, [daftarSoal, indeksSoal, handleJawab]);
 
+  // --- EFFECT 1: AMBIL DATA (HANYA SEKALI) ---
   useEffect(() => {
+    let isMounted = true;
+
     fetch(`https://equran.id/api/v2/surat/${idSurah}`)
       .then((res) => res.json())
       .then((data) => {
+        if (!isMounted) return;
         const ayatList: Ayat[] = data.data.ayat;
         const poolSoalValid = [];
+        
         for (let i = ayatMulai - 1; i < ayatAkhir - 1; i++) {
           if (i + 1 < ayatList.length) poolSoalValid.push(i);
         }
+
         const diacak = poolSoalValid.sort(() => Math.random() - 0.5);
         const kandidatTerpilih = diacak.slice(0, targetSoal);
+
         const soalDirakit = kandidatTerpilih.map((idx) => {
           const ayatSoal = ayatList[idx];
           const jawabanBenar = ayatList[idx + 1];
-          const jawabanSalah = ayatList.filter((a) => a.nomorAyat !== jawabanBenar.nomorAyat).sort(() => Math.random() - 0.5).slice(0, 3);
+          const jawabanSalah = ayatList
+            .filter((a) => a.nomorAyat !== jawabanBenar.nomorAyat)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
           const pilihan = [jawabanBenar, ...jawabanSalah].sort(() => Math.random() - 0.5);
           return { ayatSoal, jawabanBenar, pilihan };
         });
+
         setDaftarSoal(soalDirakit);
         setIsLoading(false);
       });
 
+    return () => { isMounted = false; };
+  }, [idSurah, ayatMulai, ayatAkhir, targetSoal]);
+
+  // --- EFFECT 2: SETUP SPEECH RECOGNITION ---
+  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (SpeechRecognition) {
@@ -112,10 +132,11 @@ function PapanKuis() {
         setIsListening(false);
       };
     }
-  }, [idSurah, ayatMulai, ayatAkhir, targetSoal, validasiSuara]);
+  }, [validasiSuara]);
 
   const handleLanjut = () => {
-    setHasilSuara(""); setPesanVoice("");
+    setHasilSuara(""); 
+    setPesanVoice("");
     if (indeksSoal < daftarSoal.length - 1) {
       setIndeksSoal((prev) => prev + 1);
       setJawabanTerpilih(null);
@@ -141,7 +162,7 @@ function PapanKuis() {
   if (isLoading) return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-900">
       <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
-      <p className="mt-4 text-emerald-600 font-medium uppercase text-sm">Menyiapkan Soal...</p>
+      <p className="mt-4 text-emerald-600 font-medium uppercase text-sm tracking-widest">Menyiapkan Soal...</p>
     </div>
   );
 
@@ -164,7 +185,6 @@ function PapanKuis() {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col pb-24 transition-colors">
-      {/* Header Skor */}
       <div className="bg-emerald-600 p-5 text-white flex justify-between items-center rounded-b-3xl shadow-lg">
         <div>
           <p className="text-[10px] opacity-70 font-bold uppercase tracking-wider">Pertanyaan</p>
@@ -180,7 +200,6 @@ function PapanKuis() {
       </div>
 
       <div className="px-5 mt-6 flex-1">
-        {/* --- TABS SWITCHER (MODE SELECTION) --- */}
         <div className="flex bg-white dark:bg-slate-800 p-1.5 rounded-2xl mb-6 shadow-sm border border-slate-200 dark:border-slate-700">
             <button 
                 onClick={() => setIsModeSuara(false)}
@@ -196,7 +215,6 @@ function PapanKuis() {
             </button>
         </div>
 
-        {/* Soal Ayat */}
         <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl text-center mb-6 shadow-sm border border-slate-200 dark:border-slate-700">
           <div className="bg-emerald-50 dark:bg-emerald-900/30 p-2 rounded-xl inline-block mb-4 text-emerald-600 dark:text-emerald-400">
              <HelpCircle className="w-6 h-6" />
@@ -208,9 +226,7 @@ function PapanKuis() {
           </div>
         </div>
 
-        {/* Tampilan Tergantung Mode */}
         {!isModeSuara ? (
-          // --- MODE PILIHAN GANDA ---
           <div className="flex flex-col gap-3">
             {soalSekarang?.pilihan.map((p) => {
                 const isBenar = p.nomorAyat === soalSekarang.jawabanBenar.nomorAyat;
@@ -222,7 +238,7 @@ function PapanKuis() {
                         disabled={jawabanTerpilih !== null} 
                         className={`p-5 rounded-2xl border-2 text-right transition-all font-arabic text-xl shadow-sm relative ${
                             jawabanTerpilih === null 
-                            ? "bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 hover:border-emerald-300" 
+                            ? "bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700" 
                             : isBenar 
                                 ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 text-emerald-700 dark:text-emerald-400" 
                                 : isTerpilih 
@@ -238,7 +254,6 @@ function PapanKuis() {
             })}
           </div>
         ) : (
-          // --- MODE SUARA ---
           <div className={`p-8 rounded-3xl border-2 border-dashed transition-all flex flex-col items-center justify-center ${isListening ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'}`}>
              <button 
                 onClick={isListening ? () => recognitionRef.current.stop() : mulaiVoice} 
@@ -265,7 +280,6 @@ function PapanKuis() {
           </div>
         )}
 
-        {/* Tombol Lanjut */}
         {jawabanTerpilih !== null && (
           <button onClick={handleLanjut} className="mt-8 w-full bg-slate-800 dark:bg-emerald-600 text-white py-5 rounded-2xl font-black tracking-widest flex items-center justify-center gap-3 shadow-xl active:scale-95 transition-all">
             {indeksSoal < daftarSoal.length - 1 ? "SOAL BERIKUTNYA" : "LIHAT SKOR AKHIR"}
