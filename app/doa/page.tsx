@@ -516,11 +516,11 @@ export default function DoaPage() {
   useEffect(() => {
     const simpananLokal = localStorage.getItem("doaFavoritApp");
     if (simpananLokal) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFavorites(JSON.parse(simpananLokal));
     }
     setIsMounted(true);
   }, []);
-
   const toggleFavorite = (judul: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     
