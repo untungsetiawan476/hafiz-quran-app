@@ -67,7 +67,7 @@ export default function HomePage() {
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-full backdrop-blur-md transition-all active:scale-95 border border-white/20 relative z-10 shadow-sm"
         >
           <Coffee className="w-4 h-4" />
-          Dukung via Saweria
+          Dukung Pengembangan Aplikasi ini Melalui via Saweria
         </a>
         
         {/* Ornamen Latar Header */}
