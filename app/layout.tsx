@@ -1,30 +1,34 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import { BookOpen, Trophy, BookHeart, Clock, Compass } from "lucide-react";
+
+// Pastikan lokasi import BottomNav Kakak sesuai ya.
+// Jika error garis merah di tulisan BottomNav, sesuaikan alamat folder komponennya.
+import BottomNav from "../components/BottomNav"; 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Hafiz Quran - Ngaji & Sambung Ayat",
-  description: "Aplikasi Al-Qur'an Digital, Kuis Hafalan & Doa Harian",
-  manifest: "/manifest.json",
+  title: "Sambung Ayat - Hafiz Quran",
+  description: "Aplikasi hafalan, kuis sambung ayat, dan alat ibadah komprehensif.",
+  manifest: "/manifest.json", // Kunci utama agar aplikasi bisa di-install jadi PWA
 };
 
-export const viewport = {
-  themeColor: "#059669",
+export const viewport: Viewport = {
+  themeColor: "#059669", // Warna Emerald-600 untuk header status bar HP
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
+    // suppressHydrationWarning sangat penting agar Next.js tidak marah
+    // saat mendeteksi perbedaan tema antara server dan HP pengguna
     <html lang="id" translate="no" suppressHydrationWarning>
       <head>
-        {/* SKRIP AJAIB DARK MODE (Juri sangat suka teknik ini) */}
+        {/* SKRIP AJAIB DARK MODE (Mencegah layar berkedip putih saat direfresh) */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -39,41 +43,19 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
-        {/* Konten Utama Aplikasi */}
-        <div className="max-w-md mx-auto min-h-screen bg-slate-50 relative shadow-xl">
+      
+      <body 
+        className={`${inter.className} bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 antialiased`}
+      >
+        {/* Pembungkus utama aplikasi */}
+        <div className="max-w-md mx-auto min-h-screen relative bg-slate-50 dark:bg-slate-900 transition-colors duration-300 shadow-2xl overflow-x-hidden">
+          
+          {/* Konten Halaman (Kuis, Doa, Jadwal, dll) akan masuk ke sini */}
           {children}
-
-          {/* --- NAVIGASI BAWAH (BOTTOM NAVBAR) --- */}
-          <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-100 px-6 py-3 flex justify-between items-center z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.03)] rounded-t-3xl">
-            
-            <Link href="/" className="flex flex-col items-center gap-1 group">
-              <BookOpen className="w-6 h-6 text-gray-400 group-hover:text-emerald-600 transition-colors" />
-              <span className="text-[10px] font-bold text-gray-500 group-hover:text-emerald-600">Mengaji</span>
-            </Link>
-
-            <Link href="/kuis" className="flex flex-col items-center gap-1 group">
-              <Trophy className="w-6 h-6 text-gray-400 group-hover:text-emerald-600 transition-colors" />
-              <span className="text-[10px] font-bold text-gray-500 group-hover:text-emerald-600">Kuis</span>
-            </Link>
-
-            <Link href="/doa" className="flex flex-col items-center gap-1 group">
-              <BookHeart className="w-6 h-6 text-gray-400 group-hover:text-emerald-600 transition-colors" />
-              <span className="text-[10px] font-bold text-gray-500 group-hover:text-emerald-600">Doa</span>
-            </Link>
-
-            <Link href="/jadwal" className="flex flex-col items-center gap-1 group">
-              <Clock className="w-6 h-6 text-gray-400 group-hover:text-emerald-600 transition-colors" />
-              <span className="text-[10px] font-bold text-gray-500 group-hover:text-emerald-600">Jadwal</span>
-            </Link>
-
-            {/* MENU FITUR BARU (TASBIH & KIBLAT) */}
-            <Link href="/fitur" className="flex flex-col items-center gap-1 group">
-              <Compass className="w-6 h-6 text-gray-400 group-hover:text-emerald-600 transition-colors" />
-              <span className="text-[10px] font-bold text-gray-500 group-hover:text-emerald-600">Fitur</span>
-            </Link>
-
-          </nav>
+          
+          {/* Navigasi Bawah */}
+          <BottomNav />
+          
         </div>
       </body>
     </html>
